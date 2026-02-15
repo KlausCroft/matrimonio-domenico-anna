@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Domenico & Anna | L'Inizio del Nostro Sempre</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        /* --- 1. DESIGN SYSTEM --- */
+        :root {
+            --gold-primary: #C5A059;
+            --gold-light: #E5D2A6;
+            --gold-dark: #8A6E36;
+            --sand-bg: #F9F8F4;
+            --ink: #2A2A2A;
+            --shadow-soft: 0 30px 60px rgba(139, 119, 87, 0.12);
+        }
+        
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        body {
+            margin: 0; padding: 0;
+            background-color: var(--sand-bg);
+            color: var(--ink);
+            font-family: 'Cormorant Garamond', serif;
+            overflow: hidden; /* Bloccato all'inizio */
+        }
+
+        body.unlocked { overflow-y: auto; overflow-x: hidden; }
+
+        /* TYPOGRAPHY */
+        h1, h2, h3 { font-family: 'Cinzel', serif; font-weight: 400; text-transform: uppercase; letter-spacing: 2px; margin: 0; }
+        p { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: #666; line-height: 1.6; }
+        .label { font-family: 'Montserrat', sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; font-weight: 600; color: var(--gold-dark); display: block; margin-bottom: 10px; }
+
+        /* --- 2. BUSTA FUNZIONANTE (FIXED) --- */
+        #intro-overlay {
+            position: fixed; inset: 0; background: #000; z-index: 99999;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            perspective: 1500px; cursor: pointer;
+            transition: opacity 1s ease 1s; /* Dissolvenza ritardata */
+        }
+        
+        .envelope-container {
+            width: 320px; height: 220px; position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            pointer-events: none; /* Lasciamo il click al container padre per sicurezza */
+        }
+        
+        /* Carta Interna */
+        .card-inside {
+            position: absolute; bottom: 0; left: 5%; width: 90%; height: 95%;
+            background: #fff; border: 1px solid var(--gold-primary);
+            z-index: 5; transition: transform 1.5s ease 0.3s;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Parti della busta */
+        .env-back { position: absolute; bottom: 0; width: 100%; height: 100%; background: #eaddca; border-radius: 5px; }
+        .env-front-left { position: absolute; top:0; left:0; width: 0; height: 0; border-top: 110px solid transparent; border-bottom: 110px solid transparent; border-left: 160px solid #e3d4c1; z-index: 10; }
+        .env-front-right { position: absolute; top:0; right:0; width: 0; height: 0; border-top: 110px solid transparent; border-bottom: 110px solid transparent; border-right: 160px solid #e3d4c1; z-index: 10; }
+        .env-front-bottom { position: absolute; bottom:0; left:0; width: 0; height: 0; border-left: 160px solid transparent; border-right: 160px solid transparent; border-bottom: 120px solid #ece2d6; z-index: 10; filter: drop-shadow(0 -2px 3px rgba(0,0,0,0.05)); }
+
+        /* Flap che si apre */
+        .env-flap {
+            position: absolute; top: 0; left: 0; width: 0; height: 0;
+            border-left: 160px solid transparent; border-right: 160px solid transparent; border-top: 120px solid #f0e6da;
+            transform-origin: top; z-index: 15;
+            transition: transform 0.6s ease;
+        }
+
+        /* Sigillo */
+        .wax-seal {
+            position: absolute; top: 120px; left: 50%; transform: translate(-50%, -50%);
+            width: 60px; height: 60px;
+            background: radial-gradient(circle at 30% 30%, #D4AF37, #8A6E36);
+            border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            display: flex; align-items: center; justify-content: center;
+            color: #3e2b0e; font-family: 'Cinzel'; font-weight: bold; font-size: 1.5rem;
+            z-index: 20; border: 2px solid rgba(255,255,255,0.2);
+            transition: opacity 0.3s;
+        }
+
+        .tap-msg {
+            color: var(--gold-primary); margin-top: 60px; font-family: 'Montserrat';
+            font-size: 0.8rem; letter-spacing: 4px; animation: pulse 1.5s infinite;
+        }
+
+        /* Stati Animazione */
+        .is-open .env-flap { transform: rotateX(180deg); z-index: 1; }
+        .is-open .wax-seal { opacity: 0; }
+        .is-open .card-inside { transform: translateY(-200px); z-index: 12; }
+
+        /* --- 3. HERO SECTION (FOTO VISIBILE) --- */
+        #main-site { display: none; opacity: 0; transition: opacity 1.5s; }
+        
+        .hero {
+            height: 100vh; position: relative; overflow: hidden;
+            display: flex; flex-direction: column; justify-content: flex-end;
+            text-align: center; color: white; padding-bottom: 80px;
+        }
+        
+        .hero-bg {
+            position: absolute; inset: 0;
+            background: url('https://i.postimg.cc/jwH9YW81/IMG-20260213-WA0073.jpg') center top/cover no-repeat;
+            z-index: 0;
+        }
+        
+        /* Gradiente solo in basso, lascia i volti liberi */
+        .hero::after {
+            content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 50%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            z-index: 1;
+        }
+        
+        .hero-content { position: relative; z-index: 2; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+        .hero h1 { font-size: 4rem; line-height: 1; margin-bottom: 10px; }
+        .hero-date { font-family: 'Montserrat'; letter-spacing: 5px; font-size: 1rem; border-top: 1px solid rgba(255,255,255,0.5); display: inline-block; padding-top: 15px; margin-top: 10px; }
+
+        /* SECTIONS */
+        .section { padding: 80px 20px; text-align: center; max-width: 800px; margin: 0 auto; }
+        
+        /* COUNTDOWN */
+        .cd-wrap {
+            display: inline-flex; gap: 15px; margin-top: 30px; padding: 20px;
+            background: #fff; box-shadow: var(--shadow-soft); border-radius: 50px;
+        }
+        .cd-box { min-width: 60px; text-align: center; }
+        .cd-num { font-family: 'Cinzel'; font-size: 2rem; display: block; color: var(--ink); font-weight: 600; }
+        .cd-lbl { font-size: 0.6rem; text-transform: uppercase; font-family: 'Montserrat'; color: #999; }
+
+        /* LOCATION */
+        .loc-frame {
+            border: 10px solid #fff; box-shadow: var(--shadow-soft);
+            margin: 40px 0; overflow: hidden; border-radius: 4px;
+        }
+        .loc-img { width: 100%; height: auto; display: block; }
+        
+        /* RSVP */
+        .rsvp-box {
+            background: #fff; padding: 40px; border-radius: 20px;
+            box-shadow: var(--shadow-soft); border: 1px solid rgba(197, 160, 89, 0.2);
+        }
+        .choices { display: flex; gap: 15px; margin: 30px 0; }
+        .c-card {
+            flex: 1; padding: 20px; border: 2px solid #eee; border-radius: 10px; cursor: pointer;
+            transition: 0.3s;
+        }
+        .c-card.selected { border-color: var(--gold-primary); background: #fafafa; }
+        .c-card i { font-size: 1.5rem; display: block; margin-bottom: 10px; color: #ccc; }
+        .c-card.selected i { color: var(--gold-primary); }
+        
+        input {
+            width: 100%; border: none; border-bottom: 1px solid #ccc; padding: 10px 0;
+            font-family: 'Cormorant Garamond'; font-size: 1.2rem; background: transparent; margin-bottom: 20px;
+            outline: none;
+        }
+        button {
+            width: 100%; padding: 20px; background: var(--ink); color: #fff; border: none;
+            font-family: 'Montserrat'; font-weight: 600; cursor: pointer; letter-spacing: 2px;
+        }
+
+        /* LISTA NOZZE */
+        .gift-box {
+            border: 2px dashed var(--gold-light); padding: 40px; background: #fff;
+            margin-top: 50px; position: relative;
+        }
+        .iban {
+            font-family: 'Montserrat'; background: #f4f4f4; padding: 15px;
+            margin-top: 20px; letter-spacing: 1px; font-weight: 500; font-size: 0.9rem;
+        }
+
+        /* CONTATTI */
+        .contacts { display: flex; justify-content: center; gap: 40px; margin-top: 40px; }
+        .c-person img { width: 80px; height: 80px; border-radius: 50%; border: 3px solid var(--gold-primary); margin-bottom: 10px; object-fit: cover;}
+        
+        @keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+    <div id="intro-overlay" onclick="startExperience()">
+        <div class="envelope-container" id="envelope">
+            <div class="env-back"></div>
+            <div class="card-inside">
+                <h3 style="font-size:1.8rem; color:#8A6E36;">D & A</h3>
+                <p style="font-family:'Montserrat'; font-size:0.6rem; margin-top:5px; text-transform:uppercase; letter-spacing:2px;">11 Luglio 2026</p>
+            </div>
+            <div class="env-front-left"></div>
+            <div class="env-front-right"></div>
+            <div class="env-front-bottom"></div>
+            <div class="env-flap"></div>
+            <div class="wax-seal">D&A</div>
+        </div>
+        <div class="tap-msg">TOCCA LO SCHERMO PER APRIRE</div>
+    </div>
+
+    <div id="main-site">
+        
+        <div class="hero">
+            <div class="hero-bg"></div>
+            <div class="hero-content" data-aos="fade-up">
+                <div class="label" style="color:#eee;">Siete invitati al matrimonio di</div>
+                <h1>Domenico <br>& Anna</h1>
+                <div class="hero-date">11 LUGLIO 2026</div>
+            </div>
+        </div>
+
+        <div class="section" data-aos="fade-up">
+            <p style="font-size:1.5rem; font-style:italic; color:#8A6E36;">"Vi aspettiamo con gioia per celebrare l'inizio della nostra vita insieme."</p>
+            
+            <div style="margin-top:40px;">
+                <span style="font-family:'Cinzel'; display:block; margin-bottom:10px;">Mancano...</span>
+                <div class="cd-wrap">
+                    <div class="cd-box"><span class="cd-num" id="d">0</span><span class="cd-lbl">Giorni</span></div>
+                    <div class="cd-box"><span class="cd-num" id="h">0</span><span class="cd-lbl">Ore</span></div>
+                    <div class="cd-box"><span class="cd-num" id="m">0</span><span class="cd-lbl">Min</span></div>
+                    <div class="cd-box"><span class="cd-num" id="s" style="color:#C5A059">0</span><span class="cd-lbl">Sec</span></div>
+                </div>
+                <span style="font-family:'Cinzel'; display:block; margin-top:20px;">...al nostro Sì!</span>
+            </div>
+        </div>
+
+        <div class="section" data-aos="fade-up">
+            <span class="label">La Location</span>
+            <h2>Miramonte ai Monitilli</h2>
+            <div class="loc-frame">
+                <img src="https://i.postimg.cc/3456qjZs/6ef86d9a-adde-4bf1-9e44-9a46c6ac2b80-2-18194-174582777124610.jpg" class="loc-img">
+            </div>
+            <a href="https://goo.gl/maps/PLACEHOLDER" target="_blank" style="color:#8A6E36; font-family:'Montserrat'; font-weight:600; text-decoration:none; border-bottom:1px solid #8A6E36;">APRI NAVIGATORE</a>
+        </div>
+
+        <div class="section" data-aos="fade-up">
+            <div class="rsvp-box">
+                <h2>Gradita Conferma</h2>
+                <span class="label" style="color:#999;">Entro il 30 Maggio</span>
+                
+                <form id="rsvpForm">
+                    <input type="text" id="nome" placeholder="NOME E COGNOME" required>
+                    
+                    <div class="choices">
+                        <div class="c-card" id="btn-si" onclick="select(true)">
+                            <i class="fa-regular fa-heart"></i>
+                            <span style="font-family:'Montserrat'; font-size:0.7rem; font-weight:600;">CI SARÒ</span>
+                        </div>
+                        <div class="c-card" id="btn-no" onclick="select(false)">
+                            <i class="fa-regular fa-circle-xmark"></i>
+                            <span style="font-family:'Montserrat'; font-size:0.7rem; font-weight:600;">NON POSSO</span>
+                        </div>
+                    </div>
+                    
+                    <div id="extra-fields" style="display:none;">
+                        <input type="number" id="adulti" placeholder="N. Adulti" min="1">
+                        <input type="number" id="bambini" placeholder="N. Bambini" min="0">
+                        <input type="text" id="note" placeholder="Intolleranze / Note">
+                    </div>
+
+                    <button type="submit" id="submitBtn">INVIA RISPOSTA</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="section" data-aos="fade-up">
+            <div class="gift-box">
+                <i class="fa-solid fa-gift" style="font-size:2rem; color:#C5A059; margin-bottom:20px;"></i>
+                <h3>Lista Nozze</h3>
+                <p style="font-size:1rem;">Il vostro affetto è il regalo più bello. Se volete contribuire al nostro sogno:</p>
+                <div class="iban">IBAN: IT00 X 0000 0000 0000 0000<br>Domenico & Anna</div>
+            </div>
+        </div>
+
+        <div class="section" style="padding-bottom:60px;">
+            <h3>Contattaci</h3>
+            <div class="contacts">
+                <div class="c-person" onclick="contact('Domenico','3330000000')">
+                    <img src="https://ui-avatars.com/api/?name=Domenico&background=1A1A1A&color=C5A059" alt="Domenico">
+                    <span style="display:block; font-family:'Cinzel';">Domenico</span>
+                </div>
+                <div class="c-person" onclick="contact('Anna','3331111111')">
+                    <img src="https://ui-avatars.com/api/?name=Anna&background=1A1A1A&color=C5A059" alt="Anna">
+                    <span style="display:block; font-family:'Cinzel';">Anna</span>
+                </div>
+            </div>
+            <div style="margin-top:50px; font-size:0.7rem; color:#ccc; font-family:'Montserrat';">CREATED WITH LOVE</div>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // 1. APERTURA SICURA
+        function startExperience() {
+            const overlay = document.getElementById('intro-overlay');
+            const env = document.getElementById('envelope');
+            const site = document.getElementById('main-site');
+
+            // Aggiunge classe animazione
+            overlay.classList.add('is-open');
+
+            // Timeout per far vedere l'animazione
+            setTimeout(() => {
+                overlay.style.opacity = '0'; // Dissolvenza schermo nero
+                setTimeout(() => {
+                    overlay.style.display = 'none'; // Rimuove schermo nero
+                    site.style.display = 'block'; // Mostra sito
+                    document.body.classList.add('unlocked'); // Sblocca scroll
+                    
+                    setTimeout(() => {
+                        site.style.opacity = '1'; // Dissolvenza sito
+                        AOS.init({ duration: 1000, once: true });
+                    }, 100);
+                }, 1000);
+            }, 1200);
+        }
+
+        // 2. RSVP LOGICA
+        let isAttending = null;
+        function select(val) {
+            isAttending = val;
+            document.getElementById('btn-si').classList.toggle('selected', val);
+            document.getElementById('btn-no').classList.toggle('selected', !val);
+            document.getElementById('extra-fields').style.display = val ? 'block' : 'none';
+            
+            if(val) {
+                confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, colors: ['#C5A059', '#E5D2A6'] });
+            }
+        }
+
+        document.getElementById('rsvpForm').addEventListener('submit', function(e){
+            e.preventDefault();
+            if(isAttending === null) { alert("Per favore seleziona un'opzione."); return; }
+            
+            const btn = document.getElementById('submitBtn');
+            btn.innerHTML = "GRAZIE!";
+            btn.style.background = "#4CAF50"; // Verde OK
+            
+            // Qui puoi inserire la logica mailto se vuoi
+        });
+
+        // 3. CONTATTI SEMPLICI
+        function contact(name, num) {
+            if(confirm("Vuoi contattare " + name + " su WhatsApp?")) {
+                window.open("https://wa.me/39" + num);
+            }
+        }
+
+        // 4. COUNTDOWN
+        const date = new Date("July 11, 2026 11:00:00").getTime();
+        setInterval(() => {
+            const now = new Date().getTime();
+            const dist = date - now;
+            if(dist > 0) {
+                document.getElementById("d").innerText = Math.floor(dist / (1000*60*60*24));
+                document.getElementById("h").innerText = Math.floor((dist % (1000*60*60*24)) / (1000*60*60));
+                document.getElementById("m").innerText = Math.floor((dist % (1000*60*60)) / (1000*60));
+                document.getElementById("s").innerText = Math.floor((dist % (1000*60)) / 1000);
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
