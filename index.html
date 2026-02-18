@@ -116,7 +116,7 @@
             transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
         .infinity path { 
-            fill: none !important; /* IMPORTANTE: Rimuove lo spazio bianco */
+            fill: none !important; 
             stroke: var(--gold); 
             stroke-width: 2; 
             stroke-linecap: round; 
@@ -126,27 +126,13 @@
         }
 
         /* --- STATO ATTIVO (CLICK) --- */
-        
         #loader.animating .rings-wrapper { animation: none; }
-
-        /* 1. Pressione: Le fedi si schiacciano al centro e spariscono */
         #loader.animating .ring-left { transform: translateX(20px) scale(0.1); opacity: 0; }
         #loader.animating .ring-right { transform: translateX(-20px) scale(0.1); opacity: 0; }
-
-        /* 2. Flash Esplosivo */
-        #loader.animating .spark { 
-            opacity: 1; transform: translate(-50%, -50%) scale(6); 
-        }
-        /* Classe per spegnere il flash */
+        #loader.animating .spark { opacity: 1; transform: translate(-50%, -50%) scale(6); }
         #loader.animating .spark.fade { opacity: 0; }
-
-        /* 3. Infinito emerge dal flash */
-        #loader.animating .infinity { 
-            opacity: 1; transform: scale(1); 
-            transition-delay: 0.3s; 
-        }
+        #loader.animating .infinity { opacity: 1; transform: scale(1); transition-delay: 0.3s; }
         #loader.animating .infinity path { stroke-dashoffset: 0; } 
-        
         #loader.animating .tap-msg { opacity: 0; transition: 0.3s; }
 
         .tap-msg {
@@ -185,13 +171,12 @@
         /* Hero */
         .hero { 
             height: 95vh; 
-            max-height: 800px; /* Evita stretching su schermi lunghi */
+            max-height: 800px; 
             position: relative; overflow: hidden; 
             display: flex; flex-direction: column; justify-content: flex-end; align-items: center; text-align: center; 
         }
         .hero-img { 
             position: absolute; inset: 20px; 
-            /* Centrato orizzontalmente, 20% dall'alto per i visi */
             background: url('https://i.ibb.co/RGpkBvnJ/smashcake-17-jpg.jpg') center 20% / cover no-repeat;
             z-index: 0; 
             filter: none; 
@@ -443,15 +428,15 @@
                 <div class="c-card">
                     <span class="c-name">Domenico</span>
                     <div class="c-actions">
-                        <a href="tel:3330000000" class="c-btn"><i class="fa-solid fa-phone"></i></a>
-                        <a href="https://wa.me/393330000000" class="c-btn c-btn-wa"><i class="fa-brands fa-whatsapp"></i></a>
+                        <a href="tel:393923546644" class="c-btn"><i class="fa-solid fa-phone"></i></a>
+                        <a href="https://wa.me/393923546644" class="c-btn c-btn-wa"><i class="fa-brands fa-whatsapp"></i></a>
                     </div>
                 </div>
                 <div class="c-card">
                     <span class="c-name">Anna</span>
                     <div class="c-actions">
-                        <a href="tel:3331111111" class="c-btn"><i class="fa-solid fa-phone"></i></a>
-                        <a href="https://wa.me/393331111111" class="c-btn c-btn-wa"><i class="fa-brands fa-whatsapp"></i></a>
+                        <a href="tel:393208626288" class="c-btn"><i class="fa-solid fa-phone"></i></a>
+                        <a href="https://wa.me/393208626288" class="c-btn c-btn-wa"><i class="fa-brands fa-whatsapp"></i></a>
                     </div>
                 </div>
             </div>
@@ -463,26 +448,21 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // 1. GESTIONE LOADER (SEQUENZA PERFETTA)
         function activateLoader() {
             const loader = document.getElementById('loader');
             const main = document.getElementById('main-wrapper');
             const spark = document.getElementById('loaderSpark');
             
-            // 1. Pressione Fedi (schiacciamento e sparizione)
             loader.classList.add('animating');
             
-            // 2. Il flash svanisce dopo 0.5s per mostrare l'infinito
             setTimeout(() => {
                 spark.classList.add('fade');
             }, 500);
 
-            // 3. Apertura Sipario (dopo che l'infinito è visibile)
             setTimeout(() => {
                 loader.classList.add('open');
             }, 1200);
 
-            // 4. Mostra il sito
             setTimeout(() => {
                 loader.style.display = 'none';
                 document.body.style.overflowY = 'auto'; 
@@ -491,7 +471,6 @@
             }, 2500);
         }
 
-        // 2. STICKY BAR
         window.addEventListener('scroll', () => {
             const sticky = document.getElementById('sticky-bar');
             const target = document.getElementById('church-section');
@@ -502,7 +481,6 @@
             }
         });
 
-        // 3. COUNTDOWN
         const date = new Date("July 11, 2026 11:00:00").getTime();
         setInterval(() => {
             const now = new Date().getTime();
@@ -521,7 +499,6 @@
             }
         }, 1000);
 
-        // 4. REGALI
         function toggleGift() {
             const menu = document.getElementById('giftMenu');
             const icon = document.getElementById('chevron');
@@ -533,7 +510,6 @@
             alert("IBAN copiato!");
         }
 
-        // 5. RSVP SU WHATSAPP (LOGICA GRAMMATICALE)
         let participation = null;
         function setRsvp(val) {
             participation = val;
@@ -567,16 +543,33 @@
             if(participation === null) { alert("Per favore indica se ci sarai."); return; }
             
             const nome = document.getElementById("nome").value;
-            const waNumber = "393208493709"; 
+            const waNumber = "393923546644"; 
             
+            const ad = participation ? (parseInt(document.getElementById("adulti").value) || 0) : 0;
+            const ba = participation ? (parseInt(document.getElementById("bambini").value) || 0) : 0;
+            const total = ad + ba;
+            const note = participation ? document.getElementById("note").value : "";
+
+            // --- INTEGRAZIONE EXCEL (GOOGLE SHEETS) ---
+            const googleScriptURL = "https://script.google.com/macros/s/AKfycbwVo4al48u60aXuAfXpgefzSkhgNGy-p2ToCVIDaTe6isTRPwwgXiPW8_YaM3SDhLfa/exec"; 
+
+            if (googleScriptURL !== "INSERISCI_QUI_IL_LINK_DELLO_SCRIPT") {
+                let formData = new URLSearchParams();
+                formData.append("nome", nome);
+                formData.append("presenza", participation ? "SÌ" : "NO");
+                formData.append("adulti", ad);
+                formData.append("bambini", ba);
+                formData.append("note", note);
+
+                fetch(googleScriptURL, { method: 'POST', body: formData, mode: 'no-cors' })
+                    .then(() => console.log("Dati inviati a Excel"))
+                    .catch(error => console.error("Errore Excel:", error));
+            }
+            // --- FINE INTEGRAZIONE ---
+
             let msg = "Ciao Domenico e Anna! Sono " + nome + ".\n\n";
             
             if(participation) {
-                const ad = parseInt(document.getElementById("adulti").value) || 0;
-                const ba = parseInt(document.getElementById("bambini").value) || 0;
-                const total = ad + ba;
-                const note = document.getElementById("note").value;
-
                 if (total > 1) {
                     msg += "Confermiamo la nostra presenza.\n";
                     msg += "Saremo in totale: " + total + " persone.\n";
@@ -586,6 +579,7 @@
                     msg += "\nNon vediamo l'ora di festeggiare con voi!";
                 } else {
                     msg += "Confermo la mia presenza.\n";
+                    msg += "Adulti: 1\n"; 
                     if (note.trim() !== "") msg += "\nNote/Intolleranze:\n" + note + "\n";
                     msg += "\nNon vedo l'ora di festeggiare con voi!";
                 }
