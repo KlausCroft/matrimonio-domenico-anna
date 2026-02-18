@@ -1,3 +1,353 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Domenico & Anna | 11.07.2026</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --gold: #B8860B;
+            --ink: #2b2b2b;
+            --paper: #FDFBF7;
+        }
+        
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        body {
+            margin: 0; padding: 0;
+            background-color: #dcd9d2;
+            color: var(--ink);
+            font-family: 'Montserrat', sans-serif;
+            overflow: hidden; 
+        }
+
+        .paper-texture {
+            position: fixed; inset: 0; pointer-events: none; z-index: 999;
+            opacity: 0.4; 
+            background-image: url("https://www.transparenttextures.com/patterns/cream-paper.png");
+            mix-blend-mode: multiply;
+        }
+
+        /* --- 1. LOADER --- */
+        #loader {
+            position: fixed; inset: 0; z-index: 100000;
+            display: flex; justify-content: center; align-items: center;
+            cursor: pointer;
+        }
+        
+        .curtain {
+            position: absolute; left: 0; width: 100%; height: 50%;
+            background: var(--paper);
+            transition: transform 1.5s cubic-bezier(0.8, 0, 0.2, 1);
+            z-index: 1;
+            box-shadow: 0 0 30px rgba(0,0,0,0.1);
+        }
+        .curtain-top { top: 0; border-bottom: 1px solid var(--gold); }
+        .curtain-bottom { bottom: 0; border-top: 1px solid var(--gold); }
+
+        .loader-content {
+            z-index: 2; position: relative; text-align: center;
+            display: flex; flex-direction: column; align-items: center;
+            transition: opacity 0.6s ease-out;
+            width: 100%;
+        }
+
+        .loader-initials {
+            font-family: 'Cormorant Garamond', serif; 
+            font-size: 2.5rem; 
+            color: var(--gold);
+            letter-spacing: 2px; font-weight: 600;
+            padding: 0 20px;
+        }
+
+        .anim-box {
+            position: relative; width: 140px; height: 80px; 
+            margin-top: 100px; margin-bottom: 20px;
+            display: flex; justify-content: center; align-items: center;
+        }
+
+        /* ANIMAZIONE BUTTON-PULSE */
+        @keyframes buttonPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .rings-wrapper {
+            position: relative; width: 100px; height: 60px;
+            display: flex; justify-content: center; align-items: center;
+            animation: buttonPulse 2.5s infinite ease-in-out;
+        }
+
+        .ring {
+            position: absolute; width: 50px; height: 50px;
+            border: 2px solid var(--gold); 
+            border-radius: 50%; 
+            box-shadow: 0 4px 15px rgba(184, 134, 11, 0.15);
+            background: transparent;
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .ring-left { left: 5px; }
+        .ring-right { right: 5px; }
+
+        /* FLASH DI LUCE */
+        .spark {
+            position: absolute; top: 50%; left: 50%; width: 10px; height: 10px;
+            background: white; border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            box-shadow: 0 0 50px 30px rgba(255, 255, 255, 1);
+            opacity: 0; pointer-events: none; z-index: 10;
+            transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+        }
+
+        /* INFINITO (FIX RIEMPIMENTO) */
+        .infinity {
+            position: absolute; width: 120px; height: 60px;
+            opacity: 0; z-index: 5; 
+            transform: scale(0.8);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .infinity path { 
+            fill: none !important; /* IMPORTANTE: Rimuove lo spazio bianco */
+            stroke: var(--gold); 
+            stroke-width: 2; 
+            stroke-linecap: round; 
+            stroke-dasharray: 300; 
+            stroke-dashoffset: 300; 
+            transition: stroke-dashoffset 1.5s ease-out; 
+        }
+
+        /* --- STATO ATTIVO (CLICK) --- */
+        
+        #loader.animating .rings-wrapper { animation: none; }
+
+        /* 1. Pressione: Le fedi si schiacciano al centro e spariscono */
+        #loader.animating .ring-left { transform: translateX(20px) scale(0.1); opacity: 0; }
+        #loader.animating .ring-right { transform: translateX(-20px) scale(0.1); opacity: 0; }
+
+        /* 2. Flash Esplosivo */
+        #loader.animating .spark { 
+            opacity: 1; transform: translate(-50%, -50%) scale(6); 
+        }
+        /* Classe per spegnere il flash */
+        #loader.animating .spark.fade { opacity: 0; }
+
+        /* 3. Infinito emerge dal flash */
+        #loader.animating .infinity { 
+            opacity: 1; transform: scale(1); 
+            transition-delay: 0.3s; 
+        }
+        #loader.animating .infinity path { stroke-dashoffset: 0; } 
+        
+        #loader.animating .tap-msg { opacity: 0; transition: 0.3s; }
+
+        .tap-msg {
+            font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase;
+            color: #999; margin-top: 40px; transition: opacity 0.3s;
+            animation: pulse-text 2s infinite;
+        }
+
+        /* APERTURA SIPARIO */
+        #loader.open .curtain-top { transform: translateY(-100%); }
+        #loader.open .curtain-bottom { transform: translateY(100%); }
+        #loader.open .loader-content { opacity: 0; pointer-events: none; }
+
+
+        /* --- STICKY BAR --- */
+        #sticky-bar {
+            position: fixed; top: 0; left: 0; width: 100%; height: 70px;
+            background: rgba(253, 251, 247, 0.98); 
+            border-bottom: 1px solid rgba(184, 134, 11, 0.3);
+            z-index: 5000; display: flex; justify-content: space-between; align-items: center;
+            padding: 0 20px; transform: translateY(-100%); transition: transform 0.4s ease-in-out;
+        }
+        #sticky-bar.visible { transform: translateY(0); }
+        .sticky-names { font-family: 'Pinyon Script', cursive; font-size: 1.5rem; color: var(--gold); }
+        .sticky-cd { font-family: 'Montserrat', sans-serif; font-size: 0.8rem; text-align: right; color: var(--ink); font-weight: 500; }
+        .sticky-label { display: block; font-size: 0.6rem; color: #999; text-transform: uppercase; }
+
+        /* --- SITO PRINCIPALE --- */
+        #main-wrapper {
+            max-width: 800px; margin: 0 auto; background: var(--paper); 
+            min-height: 100vh; position: relative; z-index: 10;
+            box-shadow: 0 0 60px rgba(0,0,0,0.15);
+            opacity: 0; transition: opacity 1s ease 1s;
+        }
+
+        /* Hero */
+        .hero { 
+            height: 95vh; 
+            max-height: 800px; /* Evita stretching su schermi lunghi */
+            position: relative; overflow: hidden; 
+            display: flex; flex-direction: column; justify-content: flex-end; align-items: center; text-align: center; 
+        }
+        .hero-img { 
+            position: absolute; inset: 20px; 
+            /* Centrato orizzontalmente, 20% dall'alto per i visi */
+            background: url('https://i.ibb.co/RGpkBvnJ/smashcake-17-jpg.jpg') center 20% / cover no-repeat;
+            z-index: 0; 
+            filter: none; 
+        }
+        .hero-overlay { 
+            position: absolute; inset: 20px; 
+            background: linear-gradient(to bottom, rgba(0,0,0,0) 60%, rgba(0,0,0,0.6) 100%); 
+            z-index: 1; 
+        }
+        
+        .hero-content { position: relative; z-index: 2; padding-bottom: 80px; width: 100%; color: #fff; text-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: 4rem; margin: 0; line-height: 1; font-weight: 500; }
+        .hero-sub { font-family: 'Pinyon Script', cursive; font-size: 2.5rem; color: #fdfbf7; display: block; margin-top: 10px; }
+        .hero-date { font-size: 0.9rem; letter-spacing: 4px; text-transform: uppercase; border-top: 1px solid rgba(255,255,255,0.5); display: inline-block; padding-top: 15px; margin-top: 15px; }
+
+        /* Sezioni */
+        .section { padding: 80px 30px; text-align: center; border-bottom: 1px solid rgba(0,0,0,0.03); position: relative; }
+        .gold-title { font-family: 'Pinyon Script', cursive; font-size: 3rem; color: var(--gold); margin-bottom: 10px; }
+        h2 { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; margin-bottom: 20px; color: var(--ink); text-transform: uppercase; letter-spacing: 2px; }
+        p { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; line-height: 1.6; color: #555; font-style: italic; margin-bottom: 30px; }
+
+        .connector-line {
+            width: 1px; height: 60px; background: var(--gold);
+            margin: 0 auto 30px auto; opacity: 0.5;
+        }
+
+        /* Countdown */
+        .countdown-wrap { display: inline-flex; flex-direction: column; padding: 20px 40px; border-top: 1px solid var(--gold); border-bottom: 1px solid var(--gold); font-family: 'Montserrat', sans-serif; }
+        .timer-val { font-size: 1.2rem; font-weight: 500; letter-spacing: 2px; }
+        .timer-lbl { font-size: 0.7rem; color: #999; text-transform: uppercase; margin-top: 5px; letter-spacing: 3px; }
+
+        /* Mappa & Foto */
+        .map-btn {
+            display: inline-block; padding: 18px 40px;
+            background: transparent; border: 1px solid var(--gold); color: var(--ink);
+            text-decoration: none; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 600;
+            transition: 0.3s; margin-top: 20px;
+        }
+        .map-btn:hover { background: var(--gold); color: #fff; }
+        .loc-img { width: 100%; height: 350px; object-fit: cover; border: 5px solid #fff; box-shadow: 0 10px 40px rgba(0,0,0,0.08); margin-bottom: 20px; }
+        .church-info { font-family: 'Cormorant Garamond'; font-size: 1.5rem; margin-bottom: 5px; font-weight: 600; }
+
+        /* Regali */
+        .gift-toggle {
+            background: #fff; border: 1px solid var(--gold); color: var(--ink);
+            padding: 20px; width: 100%; cursor: pointer; text-transform: uppercase; letter-spacing: 2px;
+            display: flex; justify-content: center; align-items: center; gap: 10px;
+            transition: 0.3s; max-width: 400px; margin: 0 auto;
+        }
+        .gift-toggle:hover { background: #fcfaf5; }
+        .gift-menu {
+            max-height: 0; opacity: 0; overflow: hidden; transition: all 0.5s ease;
+            background: #fff; max-width: 400px; margin: 0 auto;
+            border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;
+        }
+        .gift-menu.open { max-height: 500px; opacity: 1; padding: 30px 20px; }
+        .iban-box { font-family: monospace; font-size: 1rem; background: #f8f8f8; padding: 15px; border: 1px dashed #ccc; word-break: break-all; margin-bottom: 15px; }
+
+        /* RSVP */
+        .rsvp-box { background: #fff; padding: 40px 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.02); }
+        input, select { width: 100%; border: none; border-bottom: 1px solid #ccc; padding: 15px 0; font-family: 'Cormorant Garamond'; font-size: 1.4rem; background: transparent; outline: none; margin-bottom: 25px; color: var(--ink); transition: 0.3s; }
+        input:focus { border-bottom-color: var(--gold); }
+        label { display: block; text-align: left; font-size: 0.7rem; color: #999; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; }
+        
+        .status-btn { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 20px; }
+        .s-opt { flex: 1; padding: 20px 10px; border: 1px solid #eee; cursor: pointer; transition: 0.3s; }
+        .s-opt.active { border-color: var(--gold); background: #fdfbf7; }
+        
+        .rsvp-text-display { font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.8rem; letter-spacing: 2px; color: var(--ink); transition: all 0.4s; display: inline-block; }
+        .morph-active { filter: blur(4px); transform: scale(0.9); opacity: 0.5; color: var(--gold); }
+
+        /* --- CONTATTI --- */
+        .contacts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 40px; }
+        .c-card { 
+            background: #fff; border: 1px solid #eee; padding: 25px 10px; 
+            text-align: center; transition: 0.3s; 
+            display: flex; flex-direction: column; align-items: center;
+        }
+        .c-card:hover { border-color: var(--gold); transform: translateY(-3px); }
+        .c-name { font-family:'Cormorant Garamond'; font-size:1.4rem; display:block; margin-bottom:15px; font-weight:600; }
+        
+        .c-actions { display: flex; justify-content: center; gap: 15px; width: 100%; }
+        .c-btn { 
+            width: 45px; height: 45px; border-radius: 50%; 
+            display: flex; justify-content: center; align-items: center; font-size: 1.2rem;
+            border: 1px solid #ddd; color: var(--ink); text-decoration: none; transition: 0.2s;
+        }
+        .c-btn-wa { color: #25D366; border-color: #25D366; }
+        .c-btn:hover { background: var(--gold); border-color: var(--gold); color: #fff; }
+        .c-btn-wa:hover { background: #25D366; border-color: #25D366; color: #fff; }
+
+
+        @keyframes pulse-text { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+
+        @media(min-width: 768px) {
+            .hero h1 { font-size: 6rem; }
+            .section { padding: 90px 80px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="paper-texture"></div>
+
+    <div id="sticky-bar">
+        <div class="sticky-names">Domenico & Anna</div>
+        <div class="sticky-info">
+            <div class="sticky-cd" id="timer-sticky">- 00g 00h 00m</div>
+            <span class="sticky-label" style="text-align:right;">Al nostro sì</span>
+        </div>
+    </div>
+
+    <div id="loader" onclick="activateLoader()">
+        <div class="curtain curtain-top"></div>
+        <div class="curtain curtain-bottom"></div>
+        <div class="loader-content">
+            <div class="loader-initials">Domenico & Anna</div>
+            
+            <div class="anim-box">
+                <div class="rings-wrapper">
+                    <div class="ring ring-left"></div>
+                    <div class="ring ring-right"></div>
+                </div>
+                
+                <div class="spark" id="loaderSpark"></div>
+
+                <svg class="infinity" viewBox="0 0 100 50">
+                    <path d="M20,25 C20,10 40,10 50,25 C60,40 80,40 80,25 C80,10 60,10 50,25 C40,40 20,40 20,25 Z" />
+                </svg>
+            </div>
+            
+            <div class="tap-msg">TOCCA PER ENTRARE</div>
+        </div>
+    </div>
+
+    <div id="main-wrapper">
+        
+        <div class="hero">
+            <div class="hero-img"></div>
+            <div class="hero-overlay"></div>
+            <div class="hero-content" data-aos="zoom-in" data-aos-duration="1500">
+                <h1>Domenico <br>& Anna</h1>
+                <span class="hero-sub">Una Promessa d'Amore</span>
+                <span class="hero-date">11 Luglio 2026</span>
+            </div>
+        </div>
+
+        <div class="section" data-aos="fade-up">
+            <div class="gold-title">L'Attesa</div>
+            <h2>Verso il Grande Giorno</h2>
+            <p>"Siamo già una famiglia, ma vogliamo celebrare le nostre radici e il nostro futuro con voi."</p>
+            
+            <div class="countdown-wrap">
+                <span class="timer-val" id="timer-main">- 00g 00h 00m 00s</span>
+                <span class="timer-lbl">Al nostro Sì</span>
+            </div>
         </div>
 
         <div class="section" id="church-section" data-aos="fade-up">
