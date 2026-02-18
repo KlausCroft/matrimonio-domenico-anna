@@ -108,7 +108,7 @@
             transition: opacity 0.4s ease-out, transform 0.4s ease-out;
         }
 
-        /* INFINITO (FIX RIEMPIMENTO) */
+        /* INFINITO */
         .infinity {
             position: absolute; width: 120px; height: 60px;
             opacity: 0; z-index: 5; 
@@ -160,6 +160,18 @@
         .sticky-cd { font-family: 'Montserrat', sans-serif; font-size: 0.8rem; text-align: right; color: var(--ink); font-weight: 500; }
         .sticky-label { display: block; font-size: 0.6rem; color: #999; text-transform: uppercase; }
 
+        /* --- PULSANTE MUSICA --- */
+        #music-toggle {
+            position: fixed; bottom: 20px; right: 20px; z-index: 5001;
+            background: rgba(253, 251, 247, 0.9);
+            border: 1px solid var(--gold); color: var(--gold);
+            width: 45px; height: 45px; border-radius: 50%;
+            display: none; justify-content: center; align-items: center;
+            cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            transition: 0.3s; font-size: 1.2rem;
+        }
+        #music-toggle:hover { background: var(--gold); color: #fff; }
+
         /* --- SITO PRINCIPALE --- */
         #main-wrapper {
             max-width: 800px; margin: 0 auto; background: var(--paper); 
@@ -192,23 +204,40 @@
         .hero-sub { font-family: 'Pinyon Script', cursive; font-size: 2.5rem; color: #fdfbf7; display: block; margin-top: 10px; }
         .hero-date { font-size: 0.9rem; letter-spacing: 4px; text-transform: uppercase; border-top: 1px solid rgba(255,255,255,0.5); display: inline-block; padding-top: 15px; margin-top: 15px; }
 
-        /* Sezioni */
+        /* INDICATORE DI SCORRIMENTO */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 35px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.8);
+            text-align: center;
+            z-index: 10;
+            animation: bounce 2s infinite ease-in-out;
+        }
+        .scroll-text {
+            display: block; font-size: 0.6rem; letter-spacing: 3px;
+            text-transform: uppercase; margin-bottom: 5px;
+        }
+        .scroll-indicator i { font-size: 1.2rem; }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
         .section { padding: 80px 30px; text-align: center; border-bottom: 1px solid rgba(0,0,0,0.03); position: relative; }
         .gold-title { font-family: 'Pinyon Script', cursive; font-size: 3rem; color: var(--gold); margin-bottom: 10px; }
         h2 { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; margin-bottom: 20px; color: var(--ink); text-transform: uppercase; letter-spacing: 2px; }
         p { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; line-height: 1.6; color: #555; font-style: italic; margin-bottom: 30px; }
 
-        .connector-line {
-            width: 1px; height: 60px; background: var(--gold);
-            margin: 0 auto 30px auto; opacity: 0.5;
-        }
+        .connector-line { width: 1px; height: 60px; background: var(--gold); margin: 0 auto 30px auto; opacity: 0.5; }
 
-        /* Countdown */
         .countdown-wrap { display: inline-flex; flex-direction: column; padding: 20px 40px; border-top: 1px solid var(--gold); border-bottom: 1px solid var(--gold); font-family: 'Montserrat', sans-serif; }
         .timer-val { font-size: 1.2rem; font-weight: 500; letter-spacing: 2px; }
         .timer-lbl { font-size: 0.7rem; color: #999; text-transform: uppercase; margin-top: 5px; letter-spacing: 3px; }
 
-        /* Mappa & Foto */
         .map-btn {
             display: inline-block; padding: 18px 40px;
             background: transparent; border: 1px solid var(--gold); color: var(--ink);
@@ -219,7 +248,6 @@
         .loc-img { width: 100%; height: 350px; object-fit: cover; border: 5px solid #fff; box-shadow: 0 10px 40px rgba(0,0,0,0.08); margin-bottom: 20px; }
         .church-info { font-family: 'Cormorant Garamond'; font-size: 1.5rem; margin-bottom: 5px; font-weight: 600; }
 
-        /* Regali */
         .gift-toggle {
             background: #fff; border: 1px solid var(--gold); color: var(--ink);
             padding: 20px; width: 100%; cursor: pointer; text-transform: uppercase; letter-spacing: 2px;
@@ -235,7 +263,6 @@
         .gift-menu.open { max-height: 500px; opacity: 1; padding: 30px 20px; }
         .iban-box { font-family: monospace; font-size: 1rem; background: #f8f8f8; padding: 15px; border: 1px dashed #ccc; word-break: break-all; margin-bottom: 15px; }
 
-        /* RSVP */
         .rsvp-box { background: #fff; padding: 40px 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.02); }
         input, select { width: 100%; border: none; border-bottom: 1px solid #ccc; padding: 15px 0; font-family: 'Cormorant Garamond'; font-size: 1.4rem; background: transparent; outline: none; margin-bottom: 25px; color: var(--ink); transition: 0.3s; }
         input:focus { border-bottom-color: var(--gold); }
@@ -248,7 +275,6 @@
         .rsvp-text-display { font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.8rem; letter-spacing: 2px; color: var(--ink); transition: all 0.4s; display: inline-block; }
         .morph-active { filter: blur(4px); transform: scale(0.9); opacity: 0.5; color: var(--gold); }
 
-        /* --- CONTATTI --- */
         .contacts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 40px; }
         .c-card { 
             background: #fff; border: 1px solid #eee; padding: 25px 10px; 
@@ -268,7 +294,6 @@
         .c-btn:hover { background: var(--gold); border-color: var(--gold); color: #fff; }
         .c-btn-wa:hover { background: #25D366; border-color: #25D366; color: #fff; }
 
-
         @keyframes pulse-text { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
 
         @media(min-width: 768px) {
@@ -280,6 +305,14 @@
 <body>
 
     <div class="paper-texture"></div>
+
+    <audio id="bg-music" loop>
+        <source src="canzone.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="music-toggle" onclick="toggleMusic()">
+        <i class="fa-solid fa-volume-high"></i>
+    </div>
 
     <div id="sticky-bar">
         <div class="sticky-names">Domenico & Anna</div>
@@ -321,6 +354,10 @@
                 <h1>Domenico <br>& Anna</h1>
                 <span class="hero-sub">Una Promessa d'Amore</span>
                 <span class="hero-date">11 Luglio 2026</span>
+            </div>
+            <div class="scroll-indicator">
+                <span class="scroll-text">Scorri</span>
+                <i class="fa-solid fa-chevron-down"></i>
             </div>
         </div>
 
@@ -448,13 +485,33 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
+        // CONTROLLO MUSICA
+        function toggleMusic() {
+            const music = document.getElementById('bg-music');
+            const icon = document.querySelector('#music-toggle i');
+            if (music.paused) {
+                music.play();
+                icon.classList.remove('fa-volume-xmark');
+                icon.classList.add('fa-volume-high');
+            } else {
+                music.pause();
+                icon.classList.remove('fa-volume-high');
+                icon.classList.add('fa-volume-xmark');
+            }
+        }
+
         function activateLoader() {
             const loader = document.getElementById('loader');
             const main = document.getElementById('main-wrapper');
             const spark = document.getElementById('loaderSpark');
+            const music = document.getElementById('bg-music');
+            const musicBtn = document.getElementById('music-toggle');
             
             loader.classList.add('animating');
             
+            // FAI PARTIRE LA MUSICA AL CLICK!
+            music.play().catch(e => console.log("Audio bloccato dal browser"));
+
             setTimeout(() => {
                 spark.classList.add('fade');
             }, 500);
@@ -467,6 +524,7 @@
                 loader.style.display = 'none';
                 document.body.style.overflowY = 'auto'; 
                 main.style.opacity = '1';
+                musicBtn.style.display = 'flex'; // Mostra il bottone della musica
                 AOS.init({ duration: 1000, once: true });
             }, 2500);
         }
@@ -550,7 +608,6 @@
             const total = ad + ba;
             const note = participation ? document.getElementById("note").value : "";
 
-            // --- INTEGRAZIONE EXCEL (GOOGLE SHEETS) ---
             const googleScriptURL = "https://script.google.com/macros/s/AKfycbwVo4al48u60aXuAfXpgefzSkhgNGy-p2ToCVIDaTe6isTRPwwgXiPW8_YaM3SDhLfa/exec"; 
 
             if (googleScriptURL !== "INSERISCI_QUI_IL_LINK_DELLO_SCRIPT") {
@@ -565,7 +622,6 @@
                     .then(() => console.log("Dati inviati a Excel"))
                     .catch(error => console.error("Errore Excel:", error));
             }
-            // --- FINE INTEGRAZIONE ---
 
             let msg = "Ciao Domenico e Anna! Sono " + nome + ".\n\n";
             
