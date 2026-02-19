@@ -67,13 +67,34 @@
             padding: 0 20px;
         }
 
+        /* --- NOME OSPITE PERSONALIZZATO --- */
+        .guest-welcome-container {
+            margin-top: 15px;
+            text-align: center;
+            opacity: 0; /* Invisibile di default, si accende col JS se c'è il nome */
+            transition: opacity 1s ease-in;
+        }
+        .guest-label {
+            font-size: 0.6rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: #999;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .guest-name {
+            font-family: 'Pinyon Script', cursive;
+            font-size: 2.5rem;
+            color: var(--gold);
+            line-height: 1;
+        }
+
         .anim-box {
             position: relative; width: 140px; height: 80px; 
-            margin-top: 100px; margin-bottom: 20px;
+            margin-top: 60px; margin-bottom: 20px;
             display: flex; justify-content: center; align-items: center;
         }
 
-        /* ANIMAZIONE BUTTON-PULSE */
         @keyframes buttonPulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.05); }
@@ -98,7 +119,6 @@
         .ring-left { left: 5px; }
         .ring-right { right: 5px; }
 
-        /* FLASH DI LUCE */
         .spark {
             position: absolute; top: 50%; left: 50%; width: 10px; height: 10px;
             background: white; border-radius: 50%;
@@ -108,7 +128,6 @@
             transition: opacity 0.4s ease-out, transform 0.4s ease-out;
         }
 
-        /* INFINITO */
         .infinity {
             position: absolute; width: 120px; height: 60px;
             opacity: 0; z-index: 5; 
@@ -328,6 +347,11 @@
         <div class="loader-content">
             <div class="loader-initials">Domenico & Anna</div>
             
+            <div id="guest-box" class="guest-welcome-container">
+                <span class="guest-label">Per</span>
+                <div id="guest-name-display" class="guest-name"></div>
+            </div>
+            
             <div class="anim-box">
                 <div class="rings-wrapper">
                     <div class="ring ring-left"></div>
@@ -485,6 +509,24 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
+        // LOGICA NOME OSPITE DA URL E PRE-COMPILAZIONE MODULO
+        document.addEventListener("DOMContentLoaded", () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const ospiti = urlParams.get('ospiti');
+            
+            if (ospiti) {
+                // Scrive il nome in grande nel loader
+                document.getElementById('guest-name-display').innerText = ospiti;
+                document.getElementById('guest-box').style.opacity = "1";
+                
+                // Pre-compila il modulo RSVP in fondo
+                const nomeInput = document.getElementById('nome');
+                if(nomeInput) {
+                    nomeInput.value = ospiti;
+                }
+            }
+        });
+
         // CONTROLLO MUSICA
         function toggleMusic() {
             const music = document.getElementById('bg-music');
@@ -507,24 +549,30 @@
             const music = document.getElementById('bg-music');
             const musicBtn = document.getElementById('music-toggle');
             
+            music.load();
+            let playPromise = music.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.then(_ => {
+                    document.querySelector('#music-toggle i').classList.remove('fa-volume-xmark');
+                    document.querySelector('#music-toggle i').classList.add('fa-volume-high');
+                }).catch(error => {
+                    console.log("Audio bloccato dal telefono");
+                    document.querySelector('#music-toggle i').classList.remove('fa-volume-high');
+                    document.querySelector('#music-toggle i').classList.add('fa-volume-xmark');
+                });
+            }
+
             loader.classList.add('animating');
             
-            // FAI PARTIRE LA MUSICA AL CLICK!
-            music.play().catch(e => console.log("Audio bloccato dal browser"));
-
-            setTimeout(() => {
-                spark.classList.add('fade');
-            }, 500);
-
-            setTimeout(() => {
-                loader.classList.add('open');
-            }, 1200);
+            setTimeout(() => { spark.classList.add('fade'); }, 500);
+            setTimeout(() => { loader.classList.add('open'); }, 1200);
 
             setTimeout(() => {
                 loader.style.display = 'none';
                 document.body.style.overflowY = 'auto'; 
                 main.style.opacity = '1';
-                musicBtn.style.display = 'flex'; // Mostra il bottone della musica
+                musicBtn.style.display = 'flex'; 
                 AOS.init({ duration: 1000, once: true });
             }, 2500);
         }
@@ -581,8 +629,7 @@
                 det.style.display = 'block'; 
                 confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#B8860B', '#FDFBF7', '#FFF'] });
                 updatePlural(); 
-            } 
-            else { det.style.display = 'none'; }
+            } else { det.style.display = 'none'; }
         }
 
         function updatePlural() {
@@ -627,19 +674,15 @@
             
             if(participation) {
                 if (total > 1) {
-                    msg += "Confermiamo la nostra presenza.\n";
-                    msg += "Saremo in totale: " + total + " persone.\n";
-                    msg += "Adulti: " + ad + "\n";
+                    msg += "Confermiamo la nostra presenza.\nSaremo in totale: " + total + " persone.\nAdulti: " + ad + "\n";
                     if (ba > 0) msg += "Bambini: " + ba + "\n";
                     if (note.trim() !== "") msg += "\nNote/Intolleranze:\n" + note + "\n";
                     msg += "\nNon vediamo l'ora di festeggiare con voi!";
                 } else {
-                    msg += "Confermo la mia presenza.\n";
-                    msg += "Adulti: 1\n"; 
+                    msg += "Confermo la mia presenza.\nAdulti: 1\n"; 
                     if (note.trim() !== "") msg += "\nNote/Intolleranze:\n" + note + "\n";
                     msg += "\nNon vedo l'ora di festeggiare con voi!";
                 }
-
             } else {
                 msg += "Mi dispiace tantissimo ma non potrò esserci. Vi auguro una giornata meravigliosa!";
             }
