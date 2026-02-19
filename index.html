@@ -35,7 +35,7 @@
             mix-blend-mode: multiply;
         }
 
-        /* --- 1. LOADER --- */
+        /* --- LOADER --- */
         #loader {
             position: fixed; inset: 0; z-index: 100000;
             display: flex; justify-content: center; align-items: center;
@@ -67,26 +67,16 @@
             padding: 0 20px;
         }
 
-        /* --- NOME OSPITE PERSONALIZZATO --- */
+        /* NOME OSPITE PERSONALIZZATO LOADER */
         .guest-welcome-container {
-            margin-top: 15px;
-            text-align: center;
-            opacity: 0; /* Invisibile di default, si accende col JS se c'è il nome */
-            transition: opacity 1s ease-in;
+            margin-top: 15px; text-align: center; opacity: 0; transition: opacity 1s ease-in;
         }
         .guest-label {
-            font-size: 0.6rem;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            color: #999;
-            display: block;
-            margin-bottom: 5px;
+            font-size: 0.6rem; letter-spacing: 4px; text-transform: uppercase;
+            color: #999; display: block; margin-bottom: 5px;
         }
         .guest-name {
-            font-family: 'Pinyon Script', cursive;
-            font-size: 2.5rem;
-            color: var(--gold);
-            line-height: 1;
+            font-family: 'Pinyon Script', cursive; font-size: 2.5rem; color: var(--gold); line-height: 1;
         }
 
         .anim-box {
@@ -109,42 +99,31 @@
 
         .ring {
             position: absolute; width: 50px; height: 50px;
-            border: 2px solid var(--gold); 
-            border-radius: 50%; 
-            box-shadow: 0 4px 15px rgba(184, 134, 11, 0.15);
-            background: transparent;
+            border: 2px solid var(--gold); border-radius: 50%; 
+            box-shadow: 0 4px 15px rgba(184, 134, 11, 0.15); background: transparent;
             transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
         
-        .ring-left { left: 5px; }
-        .ring-right { right: 5px; }
+        .ring-left { left: 5px; } .ring-right { right: 5px; }
 
         .spark {
             position: absolute; top: 50%; left: 50%; width: 10px; height: 10px;
-            background: white; border-radius: 50%;
-            transform: translate(-50%, -50%) scale(0);
+            background: white; border-radius: 50%; transform: translate(-50%, -50%) scale(0);
             box-shadow: 0 0 50px 30px rgba(255, 255, 255, 1);
             opacity: 0; pointer-events: none; z-index: 10;
             transition: opacity 0.4s ease-out, transform 0.4s ease-out;
         }
 
         .infinity {
-            position: absolute; width: 120px; height: 60px;
-            opacity: 0; z-index: 5; 
-            transform: scale(0.8);
+            position: absolute; width: 120px; height: 60px; opacity: 0; z-index: 5; transform: scale(0.8);
             transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
         .infinity path { 
-            fill: none !important; 
-            stroke: var(--gold); 
-            stroke-width: 2; 
-            stroke-linecap: round; 
-            stroke-dasharray: 300; 
-            stroke-dashoffset: 300; 
-            transition: stroke-dashoffset 1.5s ease-out; 
+            fill: none !important; stroke: var(--gold); stroke-width: 2; stroke-linecap: round; 
+            stroke-dasharray: 300; stroke-dashoffset: 300; transition: stroke-dashoffset 1.5s ease-out; 
         }
 
-        /* --- STATO ATTIVO (CLICK) --- */
+        /* STATO ATTIVO LOADER */
         #loader.animating .rings-wrapper { animation: none; }
         #loader.animating .ring-left { transform: translateX(20px) scale(0.1); opacity: 0; }
         #loader.animating .ring-right { transform: translateX(-20px) scale(0.1); opacity: 0; }
@@ -160,17 +139,15 @@
             animation: pulse-text 2s infinite;
         }
 
-        /* APERTURA SIPARIO */
         #loader.open .curtain-top { transform: translateY(-100%); }
         #loader.open .curtain-bottom { transform: translateY(100%); }
         #loader.open .loader-content { opacity: 0; pointer-events: none; }
 
 
-        /* --- STICKY BAR --- */
+        /* --- STICKY BAR E MUSICA --- */
         #sticky-bar {
             position: fixed; top: 0; left: 0; width: 100%; height: 70px;
-            background: rgba(253, 251, 247, 0.98); 
-            border-bottom: 1px solid rgba(184, 134, 11, 0.3);
+            background: rgba(253, 251, 247, 0.98); border-bottom: 1px solid rgba(184, 134, 11, 0.3);
             z-index: 5000; display: flex; justify-content: space-between; align-items: center;
             padding: 0 20px; transform: translateY(-100%); transition: transform 0.4s ease-in-out;
         }
@@ -179,43 +156,30 @@
         .sticky-cd { font-family: 'Montserrat', sans-serif; font-size: 0.8rem; text-align: right; color: var(--ink); font-weight: 500; }
         .sticky-label { display: block; font-size: 0.6rem; color: #999; text-transform: uppercase; }
 
-        /* --- PULSANTE MUSICA --- */
         #music-toggle {
             position: fixed; bottom: 20px; right: 20px; z-index: 5001;
-            background: rgba(253, 251, 247, 0.9);
-            border: 1px solid var(--gold); color: var(--gold);
-            width: 45px; height: 45px; border-radius: 50%;
-            display: none; justify-content: center; align-items: center;
-            cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-            transition: 0.3s; font-size: 1.2rem;
+            background: rgba(253, 251, 247, 0.9); border: 1px solid var(--gold); color: var(--gold);
+            width: 45px; height: 45px; border-radius: 50%; display: none; justify-content: center; align-items: center;
+            cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.15); transition: 0.3s; font-size: 1.2rem;
         }
         #music-toggle:hover { background: var(--gold); color: #fff; }
 
         /* --- SITO PRINCIPALE --- */
         #main-wrapper {
-            max-width: 800px; margin: 0 auto; background: var(--paper); 
-            min-height: 100vh; position: relative; z-index: 10;
-            box-shadow: 0 0 60px rgba(0,0,0,0.15);
-            opacity: 0; transition: opacity 1s ease 1s;
+            max-width: 800px; margin: 0 auto; background: var(--paper); min-height: 100vh; position: relative; z-index: 10;
+            box-shadow: 0 0 60px rgba(0,0,0,0.15); opacity: 0; transition: opacity 1s ease 1s;
         }
 
         /* Hero */
         .hero { 
-            height: 95vh; 
-            max-height: 800px; 
-            position: relative; overflow: hidden; 
+            height: 95vh; max-height: 800px; position: relative; overflow: hidden; 
             display: flex; flex-direction: column; justify-content: flex-end; align-items: center; text-align: center; 
         }
         .hero-img { 
-            position: absolute; inset: 20px; 
-            background: url('https://i.ibb.co/RGpkBvnJ/smashcake-17-jpg.jpg') center 20% / cover no-repeat;
-            z-index: 0; 
-            filter: none; 
+            position: absolute; inset: 20px; background: url('https://i.ibb.co/RGpkBvnJ/smashcake-17-jpg.jpg') center 20% / cover no-repeat; z-index: 0; 
         }
         .hero-overlay { 
-            position: absolute; inset: 20px; 
-            background: linear-gradient(to bottom, rgba(0,0,0,0) 60%, rgba(0,0,0,0.6) 100%); 
-            z-index: 1; 
+            position: absolute; inset: 20px; background: linear-gradient(to bottom, rgba(0,0,0,0) 60%, rgba(0,0,0,0.6) 100%); z-index: 1; 
         }
         
         .hero-content { position: relative; z-index: 2; padding-bottom: 80px; width: 100%; color: #fff; text-shadow: 0 4px 15px rgba(0,0,0,0.5); }
@@ -223,21 +187,12 @@
         .hero-sub { font-family: 'Pinyon Script', cursive; font-size: 2.5rem; color: #fdfbf7; display: block; margin-top: 10px; }
         .hero-date { font-size: 0.9rem; letter-spacing: 4px; text-transform: uppercase; border-top: 1px solid rgba(255,255,255,0.5); display: inline-block; padding-top: 15px; margin-top: 15px; }
 
-        /* INDICATORE DI SCORRIMENTO */
+        /* SCORRIMENTO */
         .scroll-indicator {
-            position: absolute;
-            bottom: 35px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: rgba(255, 255, 255, 0.8);
-            text-align: center;
-            z-index: 10;
-            animation: bounce 2s infinite ease-in-out;
+            position: absolute; bottom: 35px; left: 50%; transform: translateX(-50%); color: rgba(255, 255, 255, 0.8);
+            text-align: center; z-index: 10; animation: bounce 2s infinite ease-in-out;
         }
-        .scroll-text {
-            display: block; font-size: 0.6rem; letter-spacing: 3px;
-            text-transform: uppercase; margin-bottom: 5px;
-        }
+        .scroll-text { display: block; font-size: 0.6rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 5px; }
         .scroll-indicator i { font-size: 1.2rem; }
         
         @keyframes bounce {
@@ -258,8 +213,7 @@
         .timer-lbl { font-size: 0.7rem; color: #999; text-transform: uppercase; margin-top: 5px; letter-spacing: 3px; }
 
         .map-btn {
-            display: inline-block; padding: 18px 40px;
-            background: transparent; border: 1px solid var(--gold); color: var(--ink);
+            display: inline-block; padding: 18px 40px; background: transparent; border: 1px solid var(--gold); color: var(--ink);
             text-decoration: none; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 600;
             transition: 0.3s; margin-top: 20px;
         }
@@ -270,20 +224,19 @@
         .gift-toggle {
             background: #fff; border: 1px solid var(--gold); color: var(--ink);
             padding: 20px; width: 100%; cursor: pointer; text-transform: uppercase; letter-spacing: 2px;
-            display: flex; justify-content: center; align-items: center; gap: 10px;
-            transition: 0.3s; max-width: 400px; margin: 0 auto;
+            display: flex; justify-content: center; align-items: center; gap: 10px; transition: 0.3s; max-width: 400px; margin: 0 auto;
         }
         .gift-toggle:hover { background: #fcfaf5; }
         .gift-menu {
-            max-height: 0; opacity: 0; overflow: hidden; transition: all 0.5s ease;
-            background: #fff; max-width: 400px; margin: 0 auto;
+            max-height: 0; opacity: 0; overflow: hidden; transition: all 0.5s ease; background: #fff; max-width: 400px; margin: 0 auto;
             border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;
         }
         .gift-menu.open { max-height: 500px; opacity: 1; padding: 30px 20px; }
         .iban-box { font-family: monospace; font-size: 1rem; background: #f8f8f8; padding: 15px; border: 1px dashed #ccc; word-break: break-all; margin-bottom: 15px; }
 
+        /* RSVP */
         .rsvp-box { background: #fff; padding: 40px 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.02); }
-        input, select { width: 100%; border: none; border-bottom: 1px solid #ccc; padding: 15px 0; font-family: 'Cormorant Garamond'; font-size: 1.4rem; background: transparent; outline: none; margin-bottom: 25px; color: var(--ink); transition: 0.3s; }
+        input, select { width: 100%; border: none; border-bottom: 1px solid #ccc; padding: 15px 0; font-family: 'Cormorant Garamond'; font-size: 1.4rem; background: transparent; outline: none; margin-bottom: 25px; color: var(--ink); transition: 0.3s; text-align:center;}
         input:focus { border-bottom-color: var(--gold); }
         label { display: block; text-align: left; font-size: 0.7rem; color: #999; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; }
         
@@ -296,8 +249,7 @@
 
         .contacts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 40px; }
         .c-card { 
-            background: #fff; border: 1px solid #eee; padding: 25px 10px; 
-            text-align: center; transition: 0.3s; 
+            background: #fff; border: 1px solid #eee; padding: 25px 10px; text-align: center; transition: 0.3s; 
             display: flex; flex-direction: column; align-items: center;
         }
         .c-card:hover { border-color: var(--gold); transform: translateY(-3px); }
@@ -305,8 +257,7 @@
         
         .c-actions { display: flex; justify-content: center; gap: 15px; width: 100%; }
         .c-btn { 
-            width: 45px; height: 45px; border-radius: 50%; 
-            display: flex; justify-content: center; align-items: center; font-size: 1.2rem;
+            width: 45px; height: 45px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.2rem;
             border: 1px solid #ddd; color: var(--ink); text-decoration: none; transition: 0.2s;
         }
         .c-btn-wa { color: #25D366; border-color: #25D366; }
@@ -314,11 +265,7 @@
         .c-btn-wa:hover { background: #25D366; border-color: #25D366; color: #fff; }
 
         @keyframes pulse-text { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
-
-        @media(min-width: 768px) {
-            .hero h1 { font-size: 6rem; }
-            .section { padding: 90px 80px; }
-        }
+        @media(min-width: 768px) { .hero h1 { font-size: 6rem; } .section { padding: 90px 80px; } }
     </style>
 </head>
 <body>
@@ -357,14 +304,11 @@
                     <div class="ring ring-left"></div>
                     <div class="ring ring-right"></div>
                 </div>
-                
                 <div class="spark" id="loaderSpark"></div>
-
                 <svg class="infinity" viewBox="0 0 100 50">
                     <path d="M20,25 C20,10 40,10 50,25 C60,40 80,40 80,25 C80,10 60,10 50,25 C40,40 20,40 20,25 Z" />
                 </svg>
             </div>
-            
             <div class="tap-msg">TOCCA PER ENTRARE</div>
         </div>
     </div>
@@ -389,7 +333,6 @@
             <div class="gold-title">L'Attesa</div>
             <h2>Verso il Grande Giorno</h2>
             <p>"Siamo già una famiglia, ma vogliamo celebrare le nostre radici e il nostro futuro con voi."</p>
-            
             <div class="countdown-wrap">
                 <span class="timer-val" id="timer-main">- 00g 00h 00m 00s</span>
                 <span class="timer-lbl">Al nostro Sì</span>
@@ -400,12 +343,9 @@
             <div class="gold-title">Il Rito</div>
             <h2>La Promessa Solenne</h2>
             <p>"Nel luogo dove i nostri cuori diventeranno uno solo, circondati dall'affetto di chi ci ama."</p>
-            
             <img src="https://i.ibb.co/Ld4Dgqhg/01-chiesa-santa-maria-della-croce.jpg" class="loc-img">
-            
             <div class="church-info">Chiesa di Santa Maria della Croce</div>
             <span style="display:block; font-size:1.1rem; letter-spacing:2px; margin-bottom:15px;">NOCI (BA) • ORE 17:00</span>
-            
             <a href="https://www.google.com/maps/search/?api=1&query=Chiesa+Santa+Maria+della+Croce+Noci" target="_blank" class="map-btn">
                 <i class="fa-solid fa-location-dot"></i> APRI MAPPA
             </a>
@@ -413,13 +353,10 @@
 
         <div class="section" id="location-section" data-aos="fade-up">
             <div class="connector-line"></div>
-            
             <div class="gold-title">La Festa</div>
             <h2>Miramonte ai Monitilli</h2>
             <p>"La gioia continua tra gli ulivi e la pietra antica della Puglia. Brinderemo insieme all'inizio del nostro viaggio."</p>
-            
             <img src="https://i.ibb.co/4RfBhyX2/6ef86d9a-adde-4bf1-9e44-9a46c6ac2b80-2-18194-174582777124610.jpg" class="loc-img">
-            
             <a href="https://www.google.com/maps/search/?api=1&query=Miramonte+ai+Monitilli+Noci" target="_blank" class="map-btn">
                 <i class="fa-solid fa-wine-glass"></i> RAGGIUNGI LA MASSERIA
             </a>
@@ -431,11 +368,27 @@
             <p>La vostra presenza è ciò che conta di più.</p>
             
             <div class="rsvp-box">
-                <form id="rsvpForm">
-                    <label>Nome e Cognome</label>
-                    <input type="text" id="nome" placeholder="Nome della famiglia" required>
+                
+                <div id="rsvp-success-msg" style="display:none; text-align:center; padding: 20px 0;">
+                    <i class="fa-solid fa-check-circle" style="font-size:3rem; color:#25D366; margin-bottom:15px;"></i>
+                    <h3 style="font-family:'Cormorant Garamond'; font-size:1.8rem; color:var(--ink); margin-bottom:10px;">Risposta Registrata!</h3>
+                    <p style="font-size:1rem; color:#666;">Hai già inviato la tua conferma da questo dispositivo.</p>
+                    <p style="font-size:0.8rem; color:#999; margin-top:20px;">Per qualsiasi modifica, contattaci direttamente:</p>
+                    <div style="display:flex; justify-content:center; gap:15px; margin-top:15px;">
+                        <a href="https://wa.me/393923546644" class="c-btn c-btn-wa"><i class="fa-brands fa-whatsapp"></i></a>
+                    </div>
+                </div>
 
-                    <label>Ci sarete?</label>
+                <form id="rsvpForm">
+                    
+                    <div id="guest-readonly-box" style="display:none; margin-bottom:30px; text-align:center; border-bottom:1px solid #eee; padding-bottom:20px;">
+                        <span style="font-size:0.7rem; color:#999; letter-spacing:2px; text-transform:uppercase; display:block; margin-bottom:5px;">Conferma per:</span>
+                        <span id="guest-readonly-name" style="font-family:'Cormorant Garamond'; font-size:1.8rem; color:var(--gold); font-weight:600;"></span>
+                    </div>
+
+                    <input type="text" id="nome" placeholder="Chi conferma la presenza?" required>
+
+                    <label style="margin-top:20px;">Ci sarete?</label>
                     <div class="status-btn">
                         <div class="s-opt" id="opt-si" onclick="setRsvp(true)">
                             <i class="fa-regular fa-circle-check" style="font-size:1.5rem; color:#ccc; display:block; margin-bottom:10px;"></i>
@@ -453,7 +406,7 @@
                             <div style="flex:1;"><label>Bambini</label><input type="number" id="bambini" value="0" min="0" oninput="updatePlural()"></div>
                         </div>
                         <label>Note / Intolleranze</label>
-                        <input type="text" id="note">
+                        <input type="text" id="note" style="text-align:left;">
                     </div>
 
                     <button type="submit" class="map-btn" style="width:100%; border:none; background:#25D366; color:#fff; cursor:pointer;">
@@ -509,20 +462,29 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // LOGICA NOME OSPITE DA URL E PRE-COMPILAZIONE MODULO
         document.addEventListener("DOMContentLoaded", () => {
             const urlParams = new URLSearchParams(window.location.search);
             const ospiti = urlParams.get('ospiti');
+            const nomeInput = document.getElementById('nome');
             
+            // 1. Controllo se l'utente ha GIÀ confermato in passato
+            if(localStorage.getItem('rsvp_inviato_domenico_anna') === 'true') {
+                document.getElementById('rsvpForm').style.display = 'none';
+                document.getElementById('rsvp-success-msg').style.display = 'block';
+            }
+
+            // 2. Personalizzazione Form & Schermata iniziale
             if (ospiti) {
-                // Scrive il nome in grande nel loader
+                // Scrive nel loader
                 document.getElementById('guest-name-display').innerText = ospiti;
                 document.getElementById('guest-box').style.opacity = "1";
                 
-                // Pre-compila il modulo RSVP in fondo
-                const nomeInput = document.getElementById('nome');
+                // Nasconde la barra di testo nel RSVP e mostra solo il nome fisso
                 if(nomeInput) {
-                    nomeInput.value = ospiti;
+                    nomeInput.value = ospiti; // Salva il dato di nascosto
+                    nomeInput.style.display = 'none'; // Nasconde la barra di digitazione
+                    document.getElementById('guest-readonly-name').innerText = ospiti;
+                    document.getElementById('guest-readonly-box').style.display = 'block'; // Mostra testo fisso elegante
                 }
             }
         });
@@ -551,23 +513,19 @@
             
             music.load();
             let playPromise = music.play();
-            
             if (playPromise !== undefined) {
                 playPromise.then(_ => {
                     document.querySelector('#music-toggle i').classList.remove('fa-volume-xmark');
                     document.querySelector('#music-toggle i').classList.add('fa-volume-high');
                 }).catch(error => {
-                    console.log("Audio bloccato dal telefono");
                     document.querySelector('#music-toggle i').classList.remove('fa-volume-high');
                     document.querySelector('#music-toggle i').classList.add('fa-volume-xmark');
                 });
             }
 
             loader.classList.add('animating');
-            
             setTimeout(() => { spark.classList.add('fade'); }, 500);
             setTimeout(() => { loader.classList.add('open'); }, 1200);
-
             setTimeout(() => {
                 loader.style.display = 'none';
                 document.body.style.overflowY = 'auto'; 
@@ -596,7 +554,6 @@
                 const h = Math.floor((dist%(1000*60*60*24))/(1000*60*60));
                 const m = Math.floor((dist%(1000*60*60))/(1000*60));
                 const s = Math.floor((dist%(1000*60))/1000);
-                
                 document.getElementById('timer-main').innerText = `- ${d}g ${h}h ${m}m ${s}s`;
                 document.getElementById('timer-sticky').innerText = `- ${d}g ${h}h ${m}m`;
             } else {
@@ -669,6 +626,11 @@
                     .then(() => console.log("Dati inviati a Excel"))
                     .catch(error => console.error("Errore Excel:", error));
             }
+
+            // BLOCCO DEL FORM DOPO L'INVIO
+            localStorage.setItem('rsvp_inviato_domenico_anna', 'true');
+            document.getElementById('rsvpForm').style.display = 'none';
+            document.getElementById('rsvp-success-msg').style.display = 'block';
 
             let msg = "Ciao Domenico e Anna! Sono " + nome + ".\n\n";
             
