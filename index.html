@@ -177,7 +177,7 @@
         .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0) 40%, rgba(0,0,0,0.9) 100%); z-index: 1; }
         .hero-content { position: relative; z-index: 2; padding-bottom: 90px; width: 100%; color: #fff; text-shadow: 0 4px 25px rgba(0,0,0,0.9); }
         
-        .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: 4rem; margin: 0; line-height: 0.9; font-weight: 500; }
+        .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: 4rem; margin: 0; line-height: 1.0; font-weight: 500; }
         .hero-sub { font-family: 'Pinyon Script', cursive; font-size: 2.6rem; color: #fdfbf7; display: block; margin-top: 15px; }
         .hero-date { font-size: 0.9rem; letter-spacing: 5px; text-transform: uppercase; border-top: 1px solid rgba(255,255,255,0.4); display: inline-block; padding-top: 15px; margin-top: 20px; }
 
@@ -320,6 +320,20 @@
             .map-btn, .cal-btn { width: auto; }
             .countdown-wrap { width: auto; }
             .loader-initials { font-size: 6rem; }
+        }
+
+        /* CORREZIONE MOBILE PER SEZIONE HERO - SCALATURA FONT */
+        @media (max-width: 767px) {
+            .hero h1 {
+                font-size: 3.2rem; /* Riduzione font per smartphone ritratto */
+                line-height: 1.0; /* Leggera spaziatura per evitare collisioni verticali */
+                max-width: 90%; /* Margine di sicurezza laterale */
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .hero-sub {
+                font-size: 2.2rem; /* Scalatura proporzionale del subtitolo */
+            }
         }
     </style>
 </head>
@@ -607,6 +621,7 @@
             const ospiti = urlParams.get('ospiti');
             const nomeInput = document.getElementById('nome');
             
+            // TRUCCO SBLOCCO
             if(urlParams.get('reset') === 'ok') {
                 localStorage.removeItem('rsvp_inviato_domenico_anna');
                 alert("Memoria sbloccata! Il form è di nuovo visibile.");
@@ -628,6 +643,7 @@
                     document.getElementById('guest-readonly-box').style.display = 'block'; 
                 }
 
+                // Logica Singolare vs Plurale
                 const lowerName = ospiti.toLowerCase();
                 const isPlural = lowerName.includes('famiglia') || lowerName.includes(' e ') || lowerName.includes(' & ') || lowerName.includes('+') || lowerName.includes(',');
 
@@ -645,12 +661,14 @@
             }
         });
 
+        // PROGRESS BAR SCROLL LOGIC
         window.onscroll = function() {
             let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
             let scrolled = (winScroll / height) * 100;
             document.getElementById("scroll-progress").style.width = scrolled + "%";
             
+            // STICKY BAR & BACK TO TOP
             const sticky = document.getElementById('sticky-bar');
             const backBtn = document.getElementById('back-to-top');
             const target = document.getElementById('church-section');
@@ -711,6 +729,7 @@
             }, 2500);
         }
 
+        // COUNTDOWN
         const date = new Date("July 11, 2026 11:00:00").getTime();
         setInterval(() => {
             const now = new Date().getTime();
@@ -742,6 +761,7 @@
             btn.style.color = '#25D366';
             btn.style.borderColor = '#25D366';
             
+            // Effetto coriandoli sul bottone
             const rect = btn.getBoundingClientRect();
             const x = (rect.left + rect.width / 2) / window.innerWidth;
             const y = (rect.top + rect.height / 2) / window.innerHeight;
