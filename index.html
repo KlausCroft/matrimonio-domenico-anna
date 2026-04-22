@@ -68,8 +68,11 @@
             transition: opacity 0.5s ease-out; width: 100%; padding: 0 15px;
         }
 
+        /* Testo animato nel loader: ora si adatta in base alla larghezza (vw) senza mai tagliarsi */
         .loader-initials {
-            font-family: 'Pinyon Script', cursive; font-size: 4.5rem; color: var(--gold); 
+            font-family: 'Pinyon Script', cursive; 
+            font-size: clamp(2rem, 10vw, 4.5rem); 
+            color: var(--gold); 
             background: linear-gradient(to right, var(--gold) 20%, var(--gold-light) 40%, var(--gold) 60%);
             background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             animation: laminaOro 3s linear infinite, writeText 2.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
@@ -79,7 +82,7 @@
 
         .guest-welcome-container { margin-top: 5px; text-align: center; min-height: 40px; }
         .guest-name { 
-            font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-style: italic; color: var(--ink); 
+            font-family: 'Cormorant Garamond', serif; font-size: clamp(1.2rem, 6vw, 1.8rem); font-style: italic; color: var(--ink); 
             animation: writeText 2s cubic-bezier(0.4, 0, 0.2, 1) forwards; animation-delay: 1.5s;
             clip-path: inset(0 100% 0 0); opacity: 0; white-space: nowrap;
         }
@@ -146,7 +149,9 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
         #sticky-bar.visible { transform: translateY(0); }
-        .sticky-names { font-family: 'Pinyon Script', cursive; font-size: 1.6rem; color: var(--gold); }
+        
+        /* Adattamento anche della scritta nella barra sticky per i cellulari */
+        .sticky-names { font-family: 'Pinyon Script', cursive; font-size: clamp(1.2rem, 5vw, 1.6rem); color: var(--gold); }
         .sticky-cd { font-family: 'Montserrat', sans-serif; font-size: 0.8rem; text-align: right; color: var(--ink); font-weight: 600; }
         .sticky-label { display: block; font-size: 0.6rem; color: #888; text-transform: uppercase; letter-spacing: 1px;}
 
@@ -177,8 +182,17 @@
         .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0) 40%, rgba(0,0,0,0.9) 100%); z-index: 1; }
         .hero-content { position: relative; z-index: 2; padding-bottom: 90px; width: 100%; color: #fff; text-shadow: 0 4px 25px rgba(0,0,0,0.9); }
         
-        .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: 4rem; margin: 0; line-height: 1.0; font-weight: 500; }
-        .hero-sub { font-family: 'Pinyon Script', cursive; font-size: 2.6rem; color: #fdfbf7; display: block; margin-top: 15px; }
+        /* Hero H1: utilizzo di clamp() per dimensioni perfette da mobile a desktop */
+        .hero h1 { 
+            font-family: 'Cormorant Garamond', serif; 
+            font-size: clamp(3rem, 14vw, 6.5rem); 
+            margin: 0; line-height: 0.95; font-weight: 500; 
+        }
+        .hero-sub { 
+            font-family: 'Pinyon Script', cursive; 
+            font-size: clamp(1.8rem, 8vw, 2.6rem); 
+            color: #fdfbf7; display: block; margin-top: 15px; 
+        }
         .hero-date { font-size: 0.9rem; letter-spacing: 5px; text-transform: uppercase; border-top: 1px solid rgba(255,255,255,0.4); display: inline-block; padding-top: 15px; margin-top: 20px; }
 
         .scroll-indicator { position: absolute; bottom: 35px; left: 50%; transform: translateX(-50%); color: rgba(255, 255, 255, 0.9); text-align: center; z-index: 10; animation: bounce 2s infinite ease-in-out; }
@@ -189,11 +203,11 @@
         .section { padding: 90px 25px; text-align: center; position: relative; z-index: 2; background: transparent;}
         
         .gold-title { 
-            font-family: 'Pinyon Script', cursive; font-size: 3.8rem; margin-bottom: 5px;
+            font-family: 'Pinyon Script', cursive; font-size: clamp(2.8rem, 10vw, 3.8rem); margin-bottom: 5px;
             background: linear-gradient(45deg, var(--gold), var(--gold-light), var(--gold)); background-size: 200% auto;
             -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shine 4s linear infinite;
         }
-        .section h2 { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; margin-bottom: 20px; color: var(--ink); text-transform: uppercase; letter-spacing: 2px; line-height: 1.2;}
+        .section h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 6vw, 2.2rem); margin-bottom: 20px; color: var(--ink); text-transform: uppercase; letter-spacing: 2px; line-height: 1.2;}
         .section p { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; line-height: 1.6; color: #555; font-style: italic; margin-bottom: 30px; padding: 0 10px;}
 
         .floral-separator { width: 100%; display: flex; justify-content: center; margin: 0 auto 40px auto; opacity: 0.8; }
@@ -247,7 +261,7 @@
         }
         .gift-menu.open { max-height: 300px; opacity: 1; margin-top: 15px; }
         
-        .iban-box { font-family: monospace; font-size: 1.1rem; background: rgba(0,0,0,0.02); padding: 20px; border-radius: 12px; word-break: break-all; margin-bottom: 20px; border: 1px dashed var(--gold-glow); color: var(--ink); letter-spacing: 1px;}
+        .iban-box { font-family: monospace; font-size: clamp(0.9rem, 4vw, 1.1rem); background: rgba(0,0,0,0.02); padding: 20px; border-radius: 12px; word-break: break-all; margin-bottom: 20px; border: 1px dashed var(--gold-glow); color: var(--ink); letter-spacing: 1px;}
         
         input, select { 
             width: 100%; border: none; border-bottom: 2px solid #ddd; padding: 15px 0; font-family: 'Cormorant Garamond'; 
@@ -315,25 +329,9 @@
         }
 
         @media(min-width: 768px) {
-            .hero h1 { font-size: 6.5rem; }
             .section { padding: 110px 60px; }
             .map-btn, .cal-btn { width: auto; }
             .countdown-wrap { width: auto; }
-            .loader-initials { font-size: 6rem; }
-        }
-
-        /* CORREZIONE MOBILE PER SEZIONE HERO - SCALATURA FONT */
-        @media (max-width: 767px) {
-            .hero h1 {
-                font-size: 3.2rem; /* Riduzione font per smartphone ritratto */
-                line-height: 1.0; /* Leggera spaziatura per evitare collisioni verticali */
-                max-width: 90%; /* Margine di sicurezza laterale */
-                margin-left: auto;
-                margin-right: auto;
-            }
-            .hero-sub {
-                font-size: 2.2rem; /* Scalatura proporzionale del subtitolo */
-            }
         }
     </style>
 </head>
@@ -586,6 +584,27 @@
             </div>
         </div>
 
+        <div class="section" data-aos="fade-up">
+            <div class="floral-separator">
+                <svg viewBox="0 0 250 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10,15 L100,15" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M150,15 L240,15" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M125,5 Q135,15 125,25 Q115,15 125,5 Z" fill="var(--gold)"/>
+                    <circle cx="108" cy="15" r="2.5" fill="var(--gold)"/>
+                    <circle cx="142" cy="15" r="2.5" fill="var(--gold)"/>
+                    <path d="M85,15 Q95,8 100,15 Q95,18 85,15 Z" fill="var(--gold)"/>
+                    <path d="M165,15 Q155,22 150,15 Q155,12 165,15 Z" fill="var(--gold)"/>
+                </svg>
+            </div>
+
+            <i class="fa-solid fa-camera-retro" style="font-size:2.5rem; color:var(--gold); margin-bottom:20px; filter: drop-shadow(0 4px 10px rgba(184,134,11,0.3));"></i>
+            <h2>Cattura l'Attimo</h2>
+            <p style="font-size:1.15rem;">Aiutateci a non perdere neanche un sorriso di questa giornata. Condividete qui le foto e i video che scatterete!</p>
+            
+            <a href="INSERISCI_QUI_IL_LINK_SCELTO" target="_blank" class="cal-btn wa-btn-sweep" style="width:90%; max-width:350px; border:none; background:var(--ink); color:#fff; cursor:pointer; font-size: 0.85rem; padding: 22px; border-radius: 15px; margin-top: 15px; display: inline-flex; justify-content: center; align-items: center; gap: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.15);">
+                <i class="fa-solid fa-cloud-arrow-up" style="font-size:1.3rem;"></i> CARICA LE TUE FOTO
+            </a>
+        </div>
         <div class="section" style="padding-bottom:100px; padding-top:50px;">
             
             <div class="romantic-quote" data-aos="fade-up" data-aos-duration="1500">
@@ -621,7 +640,6 @@
             const ospiti = urlParams.get('ospiti');
             const nomeInput = document.getElementById('nome');
             
-            // TRUCCO SBLOCCO
             if(urlParams.get('reset') === 'ok') {
                 localStorage.removeItem('rsvp_inviato_domenico_anna');
                 alert("Memoria sbloccata! Il form è di nuovo visibile.");
@@ -643,7 +661,6 @@
                     document.getElementById('guest-readonly-box').style.display = 'block'; 
                 }
 
-                // Logica Singolare vs Plurale
                 const lowerName = ospiti.toLowerCase();
                 const isPlural = lowerName.includes('famiglia') || lowerName.includes(' e ') || lowerName.includes(' & ') || lowerName.includes('+') || lowerName.includes(',');
 
@@ -661,14 +678,12 @@
             }
         });
 
-        // PROGRESS BAR SCROLL LOGIC
         window.onscroll = function() {
             let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
             let scrolled = (winScroll / height) * 100;
             document.getElementById("scroll-progress").style.width = scrolled + "%";
             
-            // STICKY BAR & BACK TO TOP
             const sticky = document.getElementById('sticky-bar');
             const backBtn = document.getElementById('back-to-top');
             const target = document.getElementById('church-section');
@@ -729,7 +744,6 @@
             }, 2500);
         }
 
-        // COUNTDOWN
         const date = new Date("July 11, 2026 11:00:00").getTime();
         setInterval(() => {
             const now = new Date().getTime();
@@ -761,7 +775,6 @@
             btn.style.color = '#25D366';
             btn.style.borderColor = '#25D366';
             
-            // Effetto coriandoli sul bottone
             const rect = btn.getBoundingClientRect();
             const x = (rect.left + rect.width / 2) / window.innerWidth;
             const y = (rect.top + rect.height / 2) / window.innerHeight;
