@@ -68,7 +68,6 @@
             transition: opacity 0.5s ease-out; width: 100%; padding: 0 15px;
         }
 
-        /* Testo animato nel loader: ora si adatta in base alla larghezza (vw) senza mai tagliarsi */
         .loader-initials {
             font-family: 'Pinyon Script', cursive; 
             font-size: clamp(2rem, 10vw, 4.5rem); 
@@ -150,7 +149,6 @@
         }
         #sticky-bar.visible { transform: translateY(0); }
         
-        /* Adattamento anche della scritta nella barra sticky per i cellulari */
         .sticky-names { font-family: 'Pinyon Script', cursive; font-size: clamp(1.2rem, 5vw, 1.6rem); color: var(--gold); }
         .sticky-cd { font-family: 'Montserrat', sans-serif; font-size: 0.8rem; text-align: right; color: var(--ink); font-weight: 600; }
         .sticky-label { display: block; font-size: 0.6rem; color: #888; text-transform: uppercase; letter-spacing: 1px;}
@@ -182,7 +180,6 @@
         .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0) 40%, rgba(0,0,0,0.9) 100%); z-index: 1; }
         .hero-content { position: relative; z-index: 2; padding-bottom: 90px; width: 100%; color: #fff; text-shadow: 0 4px 25px rgba(0,0,0,0.9); }
         
-        /* Hero H1: utilizzo di clamp() per dimensioni perfette da mobile a desktop */
         .hero h1 { 
             font-family: 'Cormorant Garamond', serif; 
             font-size: clamp(3rem, 14vw, 6.5rem); 
@@ -499,7 +496,11 @@
 
             <div class="gold-title">RSVP</div>
             <h2>Unitevi a Noi</h2>
-            <p style="font-size: 0.9rem; color: var(--gold); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-top: -10px; margin-bottom: 25px;">È gradita conferma entro il 10 giugno 2026</p>
+            
+            <div style="margin-top: -10px; margin-bottom: 30px;">
+                <span style="font-family: 'Montserrat', sans-serif; font-size: 0.85rem; color: #666; text-transform: uppercase; letter-spacing: 2px; font-weight: 500;">È gradita conferma entro il</span><br>
+                <span style="font-family: 'Montserrat', sans-serif; font-size: 1.4rem; color: var(--gold); font-weight: 700; letter-spacing: 1px; display: inline-block; margin-top: 5px;">10 Giugno 2026</span>
+            </div>
             
             <p>La vostra presenza è ciò che conta di più.</p>
             
@@ -605,6 +606,7 @@
                 <i class="fa-solid fa-cloud-arrow-up" style="font-size:1.3rem;"></i> CARICA LE TUE FOTO
             </a>
         </div>
+
         <div class="section" style="padding-bottom:100px; padding-top:50px;">
             
             <div class="romantic-quote" data-aos="fade-up" data-aos-duration="1500">
