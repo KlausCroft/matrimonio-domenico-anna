@@ -7,7 +7,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700;800&family=Montserrat:wght@300;400;500;600;700&family=Pinyon+Script&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
@@ -241,7 +241,7 @@
             border: 1px solid rgba(255, 255, 255, 0.8);
             border-top: 1px solid rgba(255,255,255,1); border-left: 1px solid rgba(255,255,255,1);
             border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.08), inset 0 0 20px rgba(184, 134, 11, 0.05);
-            padding: 45px 25px; position: relative; overflow: hidden;
+            padding: clamp(30px, 8vw, 45px) clamp(15px, 5vw, 25px); position: relative; overflow: hidden;
         }
 
         .gift-toggle {
@@ -260,18 +260,40 @@
         
         .iban-box { font-family: monospace; font-size: clamp(0.9rem, 4vw, 1.1rem); background: rgba(0,0,0,0.02); padding: 20px; border-radius: 12px; word-break: break-all; margin-bottom: 20px; border: 1px dashed var(--gold-glow); color: var(--ink); letter-spacing: 1px;}
         
+        /* ----------------------------------------------------
+           FORMATTAZIONE RSVP PERFETTA PER MOBILE E LOGICA PULITA
+           ---------------------------------------------------- */
+        .rsvp-box form { width: 100%; }
+        
         input, select { 
             width: 100%; border: none; border-bottom: 2px solid #ddd; padding: 15px 0; font-family: 'Cormorant Garamond'; 
             font-size: 1.6rem; background: transparent; outline: none; margin-bottom: 30px; color: var(--ink); text-align:center; border-radius: 0; transition: border-color 0.4s;
+            appearance: none; -webkit-appearance: none;
         }
         input:focus { border-bottom-color: var(--gold); }
-        label { display: block; text-align: left; font-size: 0.7rem; color: #888; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; padding-left: 5px;}
         
-        .status-btn { display: flex; justify-content: space-between; gap: 15px; margin-bottom: 30px; }
-        .s-opt { flex: 1; padding: 25px 10px; border: 1px solid #ddd; border-radius: 15px; cursor: pointer; transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); background:#fff; -webkit-tap-highlight-color: rgba(0,0,0,0); }
+        label { 
+            display: block; text-align: left; font-size: 0.7rem; color: #888; 
+            letter-spacing: 2px; text-transform: uppercase; font-weight: 600; padding-left: 5px; 
+            margin-bottom: -10px;
+        }
+        #lbl-question { margin-bottom: 15px; margin-top: 20px; text-align: center; }
+        
+        .status-btn { display: flex; justify-content: space-between; gap: 15px; margin-bottom: 35px; }
+        .s-opt { 
+            flex: 1; padding: 25px 10px; border: 1px solid #ddd; border-radius: 15px; 
+            cursor: pointer; transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
+            background:#fff; -webkit-tap-highlight-color: rgba(0,0,0,0);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
         .s-opt.active { border-color: var(--gold); background: #fdfbf7; box-shadow: 0 10px 25px var(--gold-glow); transform: translateY(-4px); }
         
-        .rsvp-text-display { font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.8rem; letter-spacing: 1.5px; color: var(--ink); transition: all 0.4s; display: inline-block; }
+        .rsvp-text-display { 
+            font-family: 'Montserrat', sans-serif; font-weight: 600; 
+            font-size: clamp(0.7rem, 2.5vw, 0.8rem); 
+            letter-spacing: 1px; color: var(--ink); transition: all 0.4s; display: inline-block; 
+            text-align: center;
+        }
         .morph-active { filter: blur(4px); transform: scale(0.9); opacity: 0.5; color: var(--gold); }
 
         .contacts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 35px; }
@@ -398,7 +420,7 @@
             <div class="hero-overlay"></div>
             <div class="hero-content" data-aos="zoom-in" data-aos-duration="2000">
                 <h1>Domenico <br>& Anna</h1>
-                <span class="hero-sub">Una Promessa d'Amore</span>
+                <span class="hero-sub">Il nostro "Sì"</span>
                 <span class="hero-date">11 Luglio 2026</span>
             </div>
             <div class="scroll-indicator">
@@ -409,8 +431,8 @@
 
         <div class="section" data-aos="fade-up">
             <div class="gold-title">L'Attesa</div>
-            <h2>Verso il Grande Giorno</h2>
-            <p>"Siamo già una famiglia, ma vogliamo celebrare le nostre radici e il nostro futuro con voi."</p>
+            <h2>Il Conto alla Rovescia</h2>
+            <p>"Non vediamo l'ora di condividere la gioia di questo traguardo con le persone che amiamo di più."</p>
             
             <div class="countdown-wrap">
                 <span class="timer-val" id="timer-main">- 00g 00h 00m 00s</span>
@@ -419,7 +441,7 @@
 
             <br>
             <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Matrimonio+Domenico+e+Anna&dates=20260711T150000Z/20260711T230000Z&details=Festeggia+con+noi!&location=Chiesa+di+Santa+Maria+della+Croce,+Noci+(BA)" target="_blank" class="cal-btn">
-                <i class="fa-regular fa-calendar-plus"></i> Salva la Data
+                Salva la Data
             </a>
         </div>
 
@@ -438,8 +460,8 @@
             </div>
 
             <div class="gold-title">Il Rito</div>
-            <h2>La Promessa Solenne</h2>
-            <p>"Nel luogo dove i nostri cuori diventeranno uno solo, circondati dall'affetto di chi ci ama."</p>
+            <h2>Dove Tutto Avrà Inizio</h2>
+            <p>"Vi aspettiamo per scambiarci le nostre promesse in una cornice a noi molto cara."</p>
             
             <div class="img-reveal-container" data-aos="reveal-img" data-aos-duration="1500">
                 <img src="https://i.ibb.co/Ld4Dgqhg/01-chiesa-santa-maria-della-croce.jpg" class="loc-img">
@@ -449,7 +471,7 @@
             <span style="display:block; font-size:1.1rem; letter-spacing:2px; margin-bottom:20px; color:#555;">NOCI (BA) • ORE 17:00</span>
             
             <a href="https://www.google.com/maps/search/?api=1&query=Chiesa+Santa+Maria+della+Croce+Noci" target="_blank" class="map-btn">
-                <i class="fa-solid fa-location-dot"></i> APRI MAPPA
+                APRI MAPPA
             </a>
         </div>
 
@@ -468,15 +490,15 @@
             </div>
             
             <div class="gold-title">La Festa</div>
-            <h2>Miramonte ai Monitilli</h2>
-            <p>"La gioia continua tra gli ulivi e la pietra antica della Puglia. Brinderemo insieme all'inizio del nostro viaggio."</p>
+            <h2>Festeggiamo Insieme</h2>
+            <p>"Dopo il rito, la serata proseguirà tra i sapori e la magia degli ulivi pugliesi di Miramonte ai Monitilli. Preparatevi a brindare e ballare!"</p>
             
             <div class="img-reveal-container" data-aos="reveal-img" data-aos-duration="1500">
                 <img src="https://i.ibb.co/4RfBhyX2/6ef86d9a-adde-4bf1-9e44-9a46c6ac2b80-2-18194-174582777124610.jpg" class="loc-img">
             </div>
             
             <a href="https://www.google.com/maps/search/?api=1&query=Miramonte+ai+Monitilli+Noci" target="_blank" class="map-btn">
-                <i class="fa-solid fa-wine-glass"></i> RAGGIUNGI LA MASSERIA
+                RAGGIUNGI LA MASSERIA
             </a>
         </div>
 
@@ -495,19 +517,17 @@
             </div>
 
             <div class="gold-title">RSVP</div>
-            <h2>Unitevi a Noi</h2>
+            <h2>La Vostra Presenza</h2>
             
             <div style="margin-top: -10px; margin-bottom: 30px;">
                 <span style="font-family: 'Montserrat', sans-serif; font-size: 0.85rem; color: #666; text-transform: uppercase; letter-spacing: 2px; font-weight: 500;">È gradita conferma entro il</span><br>
                 <span style="font-family: 'Montserrat', sans-serif; font-size: 1.4rem; color: var(--gold); font-weight: 700; letter-spacing: 1px; display: inline-block; margin-top: 5px;">10 Giugno 2026</span>
             </div>
             
-            <p>La vostra presenza è ciò che conta di più.</p>
-            
             <div class="rsvp-box glass-box">
                 
                 <div id="rsvp-success-msg" style="display:none; text-align:center; padding: 10px 0;">
-                    <i class="fa-solid fa-check-circle" style="font-size:3.5rem; color:#25D366; margin-bottom:15px; filter: drop-shadow(0 4px 10px rgba(37,211,102,0.3));"></i>
+                    <i class="fa-regular fa-circle-check" style="font-size:3.5rem; color:#25D366; margin-bottom:15px; filter: drop-shadow(0 4px 10px rgba(37,211,102,0.3));"></i>
                     <h3 style="font-family:'Cormorant Garamond'; font-size:2rem; color:var(--ink); margin-bottom:10px;">Risposta Registrata!</h3>
                     <p style="font-size:1rem; color:#666; line-height:1.4;">Hai già inviato la tua conferma da questo dispositivo.</p>
                     <p style="font-size:0.8rem; color:#999; margin-top:25px; text-transform:uppercase; letter-spacing:2px;">Per eventuali modifiche:</p>
@@ -517,36 +537,42 @@
                 </div>
 
                 <form id="rsvpForm">
-                    
                     <div id="guest-readonly-box" style="display:none; margin-bottom:30px; text-align:center; border-bottom:1px solid rgba(0,0,0,0.05); padding-bottom:25px;">
                         <span id="guest-readonly-name" style="font-family:'Pinyon Script', cursive; font-size:3.2rem; color:var(--gold); display:block; line-height: 1;"></span>
                     </div>
 
-                    <input type="text" id="nome" placeholder="Chi conferma la presenza?" required>
+                    <label style="margin-top: 10px;">Nome e Cognome</label>
+                    <input type="text" id="nome" placeholder="" required>
 
-                    <label id="lbl-question" style="margin-top:20px;">Ci sarai / sarete?</label>
+                    <label id="lbl-question">Confermi la presenza?</label>
                     <div class="status-btn">
                         <div class="s-opt" id="opt-si" onclick="setRsvp(true)">
                             <i class="fa-regular fa-circle-check" style="font-size:2.2rem; color:#ccc; display:block; margin-bottom:10px; transition:0.3s;"></i>
-                            <span class="rsvp-text-display" id="txt-si">CI SARÒ/SAREMO</span>
+                            <span class="rsvp-text-display" id="txt-si">SÌ, CONFERMO</span>
                         </div>
                         <div class="s-opt" id="opt-no" onclick="setRsvp(false)">
                             <i class="fa-regular fa-circle-xmark" style="font-size:2.2rem; color:#ccc; display:block; margin-bottom:10px; transition:0.3s;"></i>
-                            <span class="rsvp-text-display" id="txt-no" style="font-size:0.75rem; letter-spacing:1px; font-weight:600;">NON POTRÒ/POTREMO</span>
+                            <span class="rsvp-text-display" id="txt-no">NON POTRÒ ESSERCI</span>
                         </div>
                     </div>
 
                     <div id="details-box" style="display:none; animation: fadeIn 0.5s;">
                         <div style="display:flex; gap:15px;">
-                            <div style="flex:1;"><label>Adulti</label><input type="number" id="adulti" value="1" min="1" oninput="updatePlural()"></div>
-                            <div style="flex:1;"><label>Bambini</label><input type="number" id="bambini" value="0" min="0" oninput="updatePlural()"></div>
+                            <div style="flex:1;">
+                                <label>Adulti</label>
+                                <input type="number" id="adulti" value="1" min="1" oninput="updatePlural()">
+                            </div>
+                            <div style="flex:1;">
+                                <label>Bambini</label>
+                                <input type="number" id="bambini" value="0" min="0" oninput="updatePlural()">
+                            </div>
                         </div>
-                        <label>Note / Intolleranze</label>
+                        <label>Eventuali Intolleranze</label>
                         <input type="text" id="note" style="text-align:left;">
                     </div>
 
                     <button type="submit" class="cal-btn wa-btn-sweep" style="width:100%; border:none; background:#25D366; color:#fff; cursor:pointer; font-size: 0.95rem; padding: 20px; border-radius: 15px; margin-top: 15px;">
-                        <i class="fa-brands fa-whatsapp" style="font-size:1.3rem; margin-right:8px; vertical-align:middle;"></i> CONFERMA SU WHATSAPP
+                        CONFERMA SU WHATSAPP
                     </button>
                 </form>
             </div>
@@ -565,21 +591,21 @@
                 </svg>
             </div>
 
-            <i class="fa-solid fa-gift" style="font-size:2.5rem; color:var(--gold); margin-bottom:20px; filter: drop-shadow(0 4px 10px rgba(184,134,11,0.3));"></i>
-            <h2>Un Pensiero</h2>
-            <p style="font-size:1.15rem;">La vostra presenza è il regalo più bello. Se volete contribuire ai nostri sogni:</p>
+            <div class="gold-title">Lista Nozze</div>
+            <h2>Il Nostro Futuro</h2>
+            <p style="font-size:1.15rem;">Il regalo più prezioso è festeggiare questo giorno con voi. Se tuttavia desiderate farci un dono per aiutarci a costruire la nostra vita insieme, potete utilizzare queste coordinate:</p>
             
             <div class="gift-toggle" onclick="toggleGift()">
-                <span><i class="fa-solid fa-envelope-open-text" style="margin-right:8px;"></i> Mostra IBAN</span>
+                <span>Mostra Coordinate IBAN</span>
                 <i class="fa-solid fa-chevron-down" id="chevron" style="transition:0.4s;"></i>
             </div>
             
             <div class="gift-menu" id="giftMenu">
                 <div class="glass-box" style="padding: 35px 20px;">
-                    <p style="font-size:0.85rem; color:#888; font-family:'Montserrat', sans-serif; letter-spacing: 2px; text-transform: uppercase;">Coordinate IBAN:</p>
-                    <div class="iban-box" id="ibanText"><span class="iban-shimmer">IT00X0000000000000000000000</span></div>
+                    <p style="font-size:0.85rem; color:#888; font-family:'Montserrat', sans-serif; letter-spacing: 2px; text-transform: uppercase;">Intestato a Domenico e Anna:</p>
+                    <div class="iban-box" id="ibanText"><span class="iban-shimmer">IT03Y0366901600900456391607</span></div>
                     <button type="button" id="copyIbanBtn" onclick="copyIban()" style="background:transparent; border:1px solid var(--gold); border-radius:30px; padding: 12px 30px; cursor:pointer; font-size:0.8rem; color:var(--gold); font-weight:700; margin-top:5px; letter-spacing:1.5px; transition: 0.3s;">
-                        <i class="fa-regular fa-copy" style="margin-right: 5px;"></i> COPIA IBAN
+                        COPIA IBAN
                     </button>
                 </div>
             </div>
@@ -598,12 +624,12 @@
                 </svg>
             </div>
 
-            <i class="fa-solid fa-camera-retro" style="font-size:2.5rem; color:var(--gold); margin-bottom:20px; filter: drop-shadow(0 4px 10px rgba(184,134,11,0.3));"></i>
-            <h2>Cattura l'Attimo</h2>
-            <p style="font-size:1.15rem;">Aiutateci a non perdere neanche un sorriso di questa giornata. Condividete qui le foto e i video che scatterete!</p>
+            <div class="gold-title">I Vostri Scatti</div>
+            <h2>Condividi i Ricordi</h2>
+            <p style="font-size:1.15rem;">Vivete la giornata e scattate più foto che potete! Cliccate qui sotto per caricarle direttamente nel nostro album digitale in modo semplice e veloce.</p>
             
-            <a href="INSERISCI_QUI_IL_LINK_SCELTO" target="_blank" class="cal-btn wa-btn-sweep" style="width:90%; max-width:350px; border:none; background:var(--ink); color:#fff; cursor:pointer; font-size: 0.85rem; padding: 22px; border-radius: 15px; margin-top: 15px; display: inline-flex; justify-content: center; align-items: center; gap: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.15);">
-                <i class="fa-solid fa-cloud-arrow-up" style="font-size:1.3rem;"></i> CARICA LE TUE FOTO
+            <a href="INSERISCI_QUI_IL_LINK_GOOGLE_DRIVE" target="_blank" class="cal-btn wa-btn-sweep" style="width:90%; max-width:350px; border:none; background:var(--ink); color:#fff; cursor:pointer; font-size: 0.85rem; padding: 22px; border-radius: 15px; margin-top: 15px; display: inline-flex; justify-content: center; align-items: center; gap: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.15);">
+                CARICA LE TUE FOTO
             </a>
         </div>
 
@@ -667,14 +693,14 @@
                 const isPlural = lowerName.includes('famiglia') || lowerName.includes(' e ') || lowerName.includes(' & ') || lowerName.includes('+') || lowerName.includes(',');
 
                 if (isPlural) {
-                    document.getElementById('lbl-question').innerText = "Ci sarete?";
-                    document.getElementById('txt-si').innerText = "CI SAREMO";
-                    document.getElementById('txt-no').innerText = "NON CI SAREMO";
+                    document.getElementById('lbl-question').innerText = "Confermate la presenza?";
+                    document.getElementById('txt-si').innerText = "SÌ, CONFERMIAMO";
+                    document.getElementById('txt-no').innerText = "NON POTREMO ESSERCI";
                     if(document.getElementById('adulti')) document.getElementById('adulti').value = "2";
                 } else {
-                    document.getElementById('lbl-question').innerText = "Ci sarai?";
-                    document.getElementById('txt-si').innerText = "CI SARÒ";
-                    document.getElementById('txt-no').innerText = "NON CI SARÒ";
+                    document.getElementById('lbl-question').innerText = "Confermi la presenza?";
+                    document.getElementById('txt-si').innerText = "SÌ, CONFERMO";
+                    document.getElementById('txt-no').innerText = "NON POTRÒ ESSERCI";
                     if(document.getElementById('adulti')) document.getElementById('adulti').value = "1";
                 }
             }
@@ -771,9 +797,12 @@
         }
 
         function copyIban() {
-            navigator.clipboard.writeText(document.getElementById('ibanText').innerText);
+            // IBAN FORMAPPATO TUTTO ATTACCATO NELLA COPIA
+            const ibanPulito = document.getElementById('ibanText').innerText.replace(/\s+/g, '');
+            navigator.clipboard.writeText(ibanPulito);
+            
             const btn = document.getElementById('copyIbanBtn');
-            btn.innerHTML = '<i class="fa-solid fa-check"></i> IBAN COPIATO!';
+            btn.innerHTML = 'IBAN COPIATO!';
             btn.style.color = '#25D366';
             btn.style.borderColor = '#25D366';
             
@@ -791,7 +820,7 @@
             });
 
             setTimeout(() => {
-                btn.innerHTML = '<i class="fa-regular fa-copy" style="margin-right: 5px;"></i> COPIA IBAN';
+                btn.innerHTML = 'COPIA IBAN';
                 btn.style.color = 'var(--gold)';
                 btn.style.borderColor = 'var(--gold)';
             }, 3000);
@@ -819,14 +848,13 @@
             const isPlural = (ad + ba > 1);
             
             const elSi = document.getElementById('txt-si');
-            const newText = isPlural ? "CI SAREMO" : "CI SARÒ";
+            const newTextSi = isPlural ? "SÌ, CI SAREMO" : "SÌ, CI SARÒ";
             
-            if(elSi.innerText !== newText) {
+            if(elSi.innerText !== newTextSi) {
                 elSi.classList.add('morph-active');
                 setTimeout(() => { 
-                    elSi.innerText = newText; 
-                    document.getElementById('lbl-question').innerText = isPlural ? "Ci sarete?" : "Ci sarai?";
-                    document.getElementById('txt-no').innerText = isPlural ? "NON CI SAREMO" : "NON CI SARÒ";
+                    elSi.innerText = newTextSi; 
+                    document.getElementById('lbl-question').innerText = isPlural ? "Confermate la presenza?" : "Confermi la presenza?";
                     elSi.classList.remove('morph-active'); 
                 }, 300);
             }
