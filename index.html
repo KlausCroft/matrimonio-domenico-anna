@@ -170,6 +170,7 @@
             box-shadow: 0 0 100px rgba(0,0,0,0.25); opacity: 0; transition: opacity 1.5s ease 0.5s;
         }
 
+        /* IMMAGINE INIZIALE PULITA SENZA LOGO */
         .hero { 
             height: 100vh; min-height: 600px; position: relative; overflow: hidden; 
             display: flex; flex-direction: column; justify-content: flex-end; align-items: center; text-align: center; 
@@ -284,7 +285,7 @@
         .c-btn:hover { transform: scale(1.15) translateY(-3px); box-shadow: 0 12px 25px rgba(184, 134, 11, 0.2); background: var(--gold); color: #fff; border-color: var(--gold); }
         .c-btn-wa:hover { background: #25D366; border-color: #25D366; box-shadow: 0 12px 25px rgba(37, 211, 102, 0.3); }
 
-        .romantic-quote { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-style: italic; color: var(--gold); margin-top: 20px; margin-bottom: 20px; padding: 0 20px; line-height: 1.5; font-weight: 600;}
+        .romantic-quote { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-style: italic; color: #555; margin-top: 20px; margin-bottom: 60px; padding: 0 20px; line-height: 1.5;}
 
         @keyframes pulse-text { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
 
@@ -486,8 +487,12 @@
                     <input type="text" id="nome" placeholder="" required>
                     <label id="lbl-question">Confermi la presenza?</label>
                     <div class="status-btn">
-                        <div class="s-opt" id="opt-si" onclick="setRsvp(true)"><span class="rsvp-text-display" id="txt-si">SÌ, CONFERMO</span></div>
-                        <div class="s-opt" id="opt-no" onclick="setRsvp(false)"><span class="rsvp-text-display" id="txt-no">NON POTRÒ ESSERCI</span></div>
+                        <div class="s-opt" id="opt-si" onclick="setRsvp(true)">
+                            <span class="rsvp-text-display" id="txt-si">SÌ, CONFERMO</span>
+                        </div>
+                        <div class="s-opt" id="opt-no" onclick="setRsvp(false)">
+                            <span class="rsvp-text-display" id="txt-no">NON POTRÒ ESSERCI</span>
+                        </div>
                     </div>
                     <div id="details-box" style="display:none; animation: fadeIn 0.5s;">
                         <div style="display:flex; gap:15px;">
@@ -520,7 +525,7 @@
             <div class="gift-toggle" onclick="toggleGift()"><span>Mostra Coordinate IBAN</span><i class="fa-solid fa-chevron-down" id="chevron"></i></div>
             <div class="gift-menu" id="giftMenu">
                 <div class="glass-box" style="padding: 35px 20px;">
-                    <p style="font-size:0.85rem; color:#888; font-family:'Montserrat', sans-serif; letter-spacing: 2px; text-transform: uppercase;">Intestato a Domenico e Anna:</p>
+                    <p style="font-size:0.85rem; color:#888; font-family:'Montserrat', sans-serif; letter-spacing: 2px; text-transform: uppercase;">Intestato a: Domenico Anastasio Laforgia</p>
                     <div class="iban-box" id="ibanText"><span class="iban-shimmer">IT03Y0366901600900456391607</span></div>
                     <button type="button" id="copyIbanBtn" onclick="copyIban()" style="background:transparent; border:1px solid var(--gold); border-radius:30px; padding: 12px 30px; cursor:pointer; font-size:0.8rem; color:var(--gold); font-weight:700; margin-top:5px; letter-spacing:1.5px;">COPIA IBAN</button>
                 </div>
@@ -579,7 +584,8 @@
         });
 
         window.onscroll = function() {
-            let scrolled = (window.scrollY / (document.documentElement.scrollHeight - document.documentElement.clientHeight)) * 100;
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let scrolled = (winScroll / (document.documentElement.scrollHeight - document.documentElement.clientHeight)) * 100;
             document.getElementById("scroll-progress").style.width = scrolled + "%";
             const sticky = document.getElementById('sticky-bar');
             const backBtn = document.getElementById('back-to-top');
