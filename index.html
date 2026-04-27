@@ -183,6 +183,7 @@
         }
         .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0) 60%, rgba(0,0,0,0.6) 100%); z-index: 1; }
         .hero-content { position: relative; z-index: 2; padding-bottom: 90px; width: 100%; color: #fff; text-shadow: 0 4px 25px rgba(0,0,0,0.9); }
+        
         .hero-date { font-size: 0.9rem; letter-spacing: 5px; text-transform: uppercase; border-top: 1px solid rgba(255,255,255,0.4); display: inline-block; padding-top: 15px; margin-top: 20px; }
 
         .scroll-indicator { position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); color: rgba(255, 255, 255, 0.9); text-align: center; z-index: 10; animation: bounce 2s infinite ease-in-out; }
@@ -253,7 +254,6 @@
         
         .iban-box { font-family: monospace; font-size: clamp(0.9rem, 4vw, 1.1rem); background: rgba(0,0,0,0.02); padding: 20px; border-radius: 12px; word-break: break-all; margin-bottom: 20px; border: 1px dashed var(--gold-glow); color: var(--ink); letter-spacing: 1px;}
         
-        /* RSVP */
         .rsvp-box form { width: 100%; }
         input, select { 
             width: 100%; border: none; border-bottom: 2px solid #ddd; padding: 15px 0; 
@@ -404,14 +404,16 @@
         </div>
 
         <div class="section" id="location-section" data-aos="fade-up">
+            <div class="floral-separator"><svg viewBox="0 0 250 30" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10,15 L100,15" stroke="var(--gold)" stroke-width="1.5"/><path d="M150,15 L240,15" stroke="var(--gold)" stroke-width="1.5"/><circle cx="125" cy="15" r="2.5" fill="var(--gold)"/></svg></div>
             <div class="gold-title">La Festa</div>
             <h2>Festeggiamo Insieme</h2>
-            <p>"Dopo il rito, la serata proseguirà tra i sapori e la magia degli ulivi pugliesi di Miramonte ai Monitilli."</p>
+            <p>"Dopo il rito, la serata proseguirà tra i sapori e la magia degli ulivi pugliesi di Miramonte ai Monitilli. Preparatevi a brindare e ballare!"</p>
             <div class="img-reveal-container" data-aos="reveal-img" data-aos-duration="1500"><img src="https://i.ibb.co/4RfBhyX2/6ef86d9a-adde-4bf1-9e44-9a46c6ac2b80-2-18194-174582777124610.jpg" class="loc-img"></div>
             <a href="https://www.google.com/maps/search/?api=1&query=Miramonte+ai+Monitilli+Noci" target="_blank" class="map-btn">RAGGIUNGI LA MASSERIA</a>
         </div>
 
         <div class="section" data-aos="fade-up">
+            <div class="floral-separator"><svg viewBox="0 0 250 30" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10,15 L100,15" stroke="var(--gold)" stroke-width="1.5"/><path d="M150,15 L240,15" stroke="var(--gold)" stroke-width="1.5"/><circle cx="125" cy="15" r="2.5" fill="var(--gold)"/></svg></div>
             <div class="gold-title">RSVP</div>
             <h2>La Vostra Presenza</h2>
             <div style="margin-top: -10px; margin-bottom: 30px;">
@@ -422,6 +424,9 @@
                 <div id="rsvp-success-msg" style="display:none; text-align:center; padding: 10px 0;">
                     <i class="fa-solid fa-check-circle" style="font-size:3.5rem; color:#25D366; margin-bottom:15px;"></i>
                     <h3 style="font-family:'Cormorant Garamond'; font-size:2rem; color:var(--ink); margin-bottom:10px;">Risposta Registrata!</h3>
+                    <p style="font-size:1rem; color:#666; line-height:1.4; margin-bottom:20px;">Hai già inviato la tua conferma da questo dispositivo.</p>
+                    
+                    <button type="button" onclick="editRsvp()" style="background:transparent; border:1px solid var(--gold); border-radius:30px; padding: 10px 25px; cursor:pointer; font-size:0.8rem; color:var(--gold); font-weight:700; letter-spacing:1px; font-family: 'Montserrat', sans-serif; transition: 0.3s;">MODIFICA RISPOSTA</button>
                 </div>
                 <form id="rsvpForm">
                     <div id="guest-readonly-box" style="display:none; margin-bottom:30px; text-align:center; border-bottom:1px solid rgba(0,0,0,0.05); padding-bottom:25px;">
@@ -452,7 +457,9 @@
         </div>
 
         <div class="section" data-aos="fade-up">
+            <div class="floral-separator"><svg viewBox="0 0 250 30" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10,15 L100,15" stroke="var(--gold)" stroke-width="1.5"/><path d="M150,15 L240,15" stroke="var(--gold)" stroke-width="1.5"/><circle cx="125" cy="15" r="2.5" fill="var(--gold)"/></svg></div>
             <div class="gold-title">Lista Nozze</div>
+            <h2>Il Nostro Futuro</h2>
             <p style="font-size:1.15rem;">La vostra presenza è il più bel regalo, ma se volete mandarci a quel paese (di nozze!), potete farlo qui!!</p>
             <div class="gift-toggle" onclick="toggleGift()"><span>Mostra Coordinate IBAN</span><i class="fa-solid fa-chevron-down" id="chevron"></i></div>
             <div class="gift-menu" id="giftMenu">
@@ -465,13 +472,15 @@
         </div>
 
         <div class="section" data-aos="fade-up">
+            <div class="floral-separator"><svg viewBox="0 0 250 30" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10,15 L100,15" stroke="var(--gold)" stroke-width="1.5"/><path d="M150,15 L240,15" stroke="var(--gold)" stroke-width="1.5"/><circle cx="125" cy="15" r="2.5" fill="var(--gold)"/></svg></div>
             <div class="gold-title">I Vostri Scatti</div>
-            <p style="font-size:1.15rem;">Vivete la giornata e scattate più foto che potete! Cliccate qui sotto per caricarle direttamente nel nostro album digitale.</p>
+            <h2>Condividi i Ricordi</h2>
+            <p style="font-size:1.15rem;">Vivete la giornata e scattate più foto che potete! Cliccate qui sotto per caricarle direttamente nel nostro album digitale in modo semplice e veloce.</p>
             <a href="https://script.google.com/macros/s/AKfycbxqNHHgRgu2eU_T25aTZk28QPcGf4bmQfkX22QCrTwPpvDFKMhA9sxMX291icgpiDnENg/exec" target="_blank" class="cal-btn wa-btn-sweep" style="width:90%; max-width:350px; border:none; background:var(--ink); color:#fff; cursor:pointer; font-size: 0.85rem; padding: 22px; border-radius: 15px; margin-top: 15px; display: inline-flex; justify-content: center; align-items: center; gap: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.15);">CARICA LE TUE FOTO</a>
         </div>
 
         <div class="section" style="padding-bottom:100px; padding-top:50px;">
-            <div class="romantic-quote" data-aos="fade-up" data-aos-duration="1500">"Al ritmo dell’amore per tutta la vita!"</div>
+            <div class="romantic-quote" data-aos="fade-up" data-aos-duration="1500" style="margin-bottom: 40px; font-weight: 600; font-size: 2.2rem; color: var(--gold);">"Al ritmo dell’amore per tutta la vita!"</div>
             <div class="contacts-grid" data-aos="fade-up">
                 <div class="c-card glass-box"><span class="c-name">Domenico</span><div class="c-actions"><a href="tel:393923546644" class="c-btn"><i class="fa-solid fa-phone"></i></a><a href="https://wa.me/393923546644" class="c-btn c-btn-wa"><i class="fa-brands fa-whatsapp"></i></a></div></div>
                 <div class="c-card glass-box"><span class="c-name">Anna</span><div class="c-actions"><a href="tel:393208626288" class="c-btn"><i class="fa-solid fa-phone"></i></a><a href="https://wa.me/393208626288" class="c-btn c-btn-wa"><i class="fa-brands fa-whatsapp"></i></a></div></div>
@@ -498,7 +507,6 @@
             }
 
             if (ospiti) {
-                // MODIFICA QUI: "PER" tutto maiuscolo
                 guestWelcomeDisplay.innerText = "PER " + ospiti;
                 document.getElementById('guest-box').style.opacity = "1";
                 
@@ -514,7 +522,7 @@
 
                 if (isPlural) {
                     document.getElementById('lbl-question').innerText = "Confermate la presenza?";
-                    document.getElementById('txt-si').innerText = "SÌ, CONFERMIAMO";
+                    document.getElementById('txt-si').innerText = "SÌ, CI SAREMO";
                     document.getElementById('txt-no').innerText = "NON POTREMO ESSERCI";
                     if(document.getElementById('adulti')) document.getElementById('adulti').value = "2";
                 } else {
@@ -531,20 +539,11 @@
             let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
             let scrolled = (winScroll / height) * 100;
             document.getElementById("scroll-progress").style.width = scrolled + "%";
-            
             const sticky = document.getElementById('sticky-bar');
             const backBtn = document.getElementById('back-to-top');
             const target = document.getElementById('church-section');
-            if(target) {
-                const pos = target.getBoundingClientRect().top;
-                if(pos < 150) {
-                    sticky.classList.add('visible');
-                    backBtn.classList.add('visible');
-                } else {
-                    sticky.classList.remove('visible');
-                    backBtn.classList.remove('visible');
-                }
-            }
+            if(target && target.getBoundingClientRect().top < 150) { sticky.classList.add('visible'); backBtn.classList.add('visible'); } 
+            else { sticky.classList.remove('visible'); backBtn.classList.remove('visible'); }
         };
 
         function toggleMusic() {
@@ -556,11 +555,12 @@
 
         function activateLoader() {
             const loader = document.getElementById('loader');
+            const main = document.getElementById('main-wrapper');
             document.getElementById('bg-music').play();
             loader.classList.add('animating');
             setTimeout(() => { document.getElementById('loaderSpark').classList.add('fade'); }, 500);
             setTimeout(() => { loader.classList.add('open'); }, 1200);
-            setTimeout(() => { loader.style.display = 'none'; document.body.style.overflowY = 'auto'; document.getElementById('main-wrapper').style.opacity = '1'; document.getElementById('music-toggle').style.display = 'flex'; AOS.init({ duration: 1200, once: true }); }, 2500);
+            setTimeout(() => { loader.style.display = 'none'; document.body.style.overflowY = 'auto'; main.style.opacity = '1'; document.getElementById('music-toggle').style.display = 'flex'; AOS.init({ duration: 1200, once: true }); }, 2500);
         }
 
         const date = new Date("July 11, 2026 11:00:00").getTime();
@@ -601,6 +601,14 @@
             const elSi = document.getElementById('txt-si');
             const newTextSi = isPlural ? "SÌ, CI SAREMO" : "SÌ, CI SARÒ";
             if(elSi.innerText !== newTextSi) { elSi.classList.add('morph-active'); setTimeout(() => { elSi.innerText = newTextSi; document.getElementById('lbl-question').innerText = isPlural ? "Confermate la presenza?" : "Confermi la presenza?"; elSi.classList.remove('morph-active'); }, 300); }
+        }
+
+        // NUOVA FUNZIONE PER MODIFICARE L'RSVP
+        function editRsvp() {
+            localStorage.removeItem('rsvp_inviato_domenico_anna');
+            document.getElementById('rsvp-success-msg').style.display = 'none';
+            document.getElementById('rsvpForm').style.display = 'block';
+            document.getElementById('rsvpForm').scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
 
         document.getElementById("rsvpForm").addEventListener("submit", function(e) {
