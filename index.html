@@ -7,7 +7,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700;800&family=Montserrat:wght@300;400;500;600;700&family=Pinyon+Script&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Montserrat:wght@300;400;500;600;700&family=Pinyon+Script&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
@@ -70,18 +70,21 @@
 
         .loader-initials {
             font-family: 'Pinyon Script', cursive; 
-            font-size: clamp(2rem, 10vw, 4.5rem); 
+            font-size: clamp(2.5rem, 12vw, 4.5rem); 
             color: var(--gold); 
             background: linear-gradient(to right, var(--gold) 20%, var(--gold-light) 40%, var(--gold) 60%);
             background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             animation: laminaOro 3s linear infinite, writeText 2.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
             clip-path: inset(0 100% 0 0); white-space: nowrap; line-height: 1.2; padding: 0 10px;
-            filter: drop-shadow(0 2px 4px rgba(184, 134, 11, 0.2));
         }
 
-        .guest-welcome-container { margin-top: 5px; text-align: center; min-height: 40px; }
+        .guest-welcome-container { margin-top: 15px; text-align: center; min-height: 40px; }
         .guest-name { 
-            font-family: 'Cormorant Garamond', serif; font-size: clamp(1.2rem, 6vw, 1.8rem); font-style: italic; color: var(--ink); 
+            font-family: 'Cormorant Garamond', serif; 
+            font-size: clamp(1.4rem, 6vw, 2.2rem); 
+            font-weight: 700;
+            font-style: italic; 
+            color: var(--ink); 
             animation: writeText 2s cubic-bezier(0.4, 0, 0.2, 1) forwards; animation-delay: 1.5s;
             clip-path: inset(0 100% 0 0); opacity: 0; white-space: nowrap;
         }
@@ -148,7 +151,6 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
         #sticky-bar.visible { transform: translateY(0); }
-        
         .sticky-names { font-family: 'Pinyon Script', cursive; font-size: clamp(1.2rem, 5vw, 1.6rem); color: var(--gold); }
         .sticky-cd { font-family: 'Montserrat', sans-serif; font-size: 0.8rem; text-align: right; color: var(--ink); font-weight: 600; }
         .sticky-label { display: block; font-size: 0.6rem; color: #888; text-transform: uppercase; letter-spacing: 1px;}
@@ -170,7 +172,6 @@
             box-shadow: 0 0 100px rgba(0,0,0,0.25); opacity: 0; transition: opacity 1.5s ease 0.5s;
         }
 
-        /* IMMAGINE INIZIALE PULITA SENZA LOGO */
         .hero { 
             height: 100vh; min-height: 600px; position: relative; overflow: hidden; 
             display: flex; flex-direction: column; justify-content: flex-end; align-items: center; text-align: center; 
@@ -253,7 +254,7 @@
         
         .iban-box { font-family: monospace; font-size: clamp(0.9rem, 4vw, 1.1rem); background: rgba(0,0,0,0.02); padding: 20px; border-radius: 12px; word-break: break-all; margin-bottom: 20px; border: 1px dashed var(--gold-glow); color: var(--ink); letter-spacing: 1px;}
         
-        /* RSVP Pulito */
+        /* RSVP OTTIMIZZATO */
         .rsvp-box form { width: 100%; }
         input, select { 
             width: 100%; border: none; border-bottom: 2px solid #ddd; padding: 15px 0; font-family: 'Cormorant Garamond'; 
@@ -264,6 +265,18 @@
         label { display: block; text-align: left; font-size: 0.7rem; color: #888; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; padding-left: 5px; margin-bottom: -10px;}
         #lbl-question { margin-bottom: 15px; margin-top: 20px; text-align: center; }
         
+        /* NUOVO FONT LEGGIBILE PER IL NOME OSPITE NELL'RSVP */
+        #guest-readonly-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.8rem, 8vw, 2.5rem);
+            font-weight: 700;
+            font-style: italic;
+            color: var(--gold);
+            display: block;
+            line-height: 1.2;
+            text-transform: none; /* Evita tutto stampatello se non desiderato */
+        }
+
         .status-btn { display: flex; justify-content: space-between; gap: 15px; margin-bottom: 35px; }
         .s-opt { 
             flex: 1; padding: 25px 10px; border: 1px solid #ddd; border-radius: 15px; 
@@ -285,7 +298,7 @@
         .c-btn:hover { transform: scale(1.15) translateY(-3px); box-shadow: 0 12px 25px rgba(184, 134, 11, 0.2); background: var(--gold); color: #fff; border-color: var(--gold); }
         .c-btn-wa:hover { background: #25D366; border-color: #25D366; box-shadow: 0 12px 25px rgba(37, 211, 102, 0.3); }
 
-        .romantic-quote { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-style: italic; color: #555; margin-top: 20px; margin-bottom: 60px; padding: 0 20px; line-height: 1.5;}
+        .romantic-quote { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-style: italic; color: var(--gold); margin-top: 20px; margin-bottom: 40px; padding: 0 20px; line-height: 1.5; font-weight: 600;}
 
         @keyframes pulse-text { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
 
@@ -332,28 +345,12 @@
 <body>
 
     <div class="paper-texture"></div>
-    
-    <div class="particles">
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-    </div>
-
+    <div class="particles"><div class="particle"></div><div class="particle"></div><div class="particle"></div><div class="particle"></div><div class="particle"></div></div>
     <div id="scroll-progress"></div>
+    <audio id="bg-music" loop><source src="canzone.mp3" type="audio/mpeg"></audio>
 
-    <audio id="bg-music" loop>
-        <source src="canzone.mp3" type="audio/mpeg">
-    </audio>
-
-    <div id="music-toggle" class="float-btn" onclick="toggleMusic()">
-        <i class="fa-solid fa-volume-high"></i>
-    </div>
-
-    <div id="back-to-top" class="float-btn" onclick="window.scrollTo(0,0)">
-        <i class="fa-solid fa-arrow-up"></i>
-    </div>
+    <div id="music-toggle" class="float-btn" onclick="toggleMusic()"><i class="fa-solid fa-volume-high"></i></div>
+    <div id="back-to-top" class="float-btn" onclick="window.scrollTo(0,0)"><i class="fa-solid fa-arrow-up"></i></div>
 
     <div id="sticky-bar">
         <div class="sticky-names">Domenico & Anna</div>
@@ -368,38 +365,26 @@
         <div class="curtain curtain-bottom"></div>
         <div class="loader-content">
             <div class="loader-initials">Domenico & Anna</div>
-            
             <div id="guest-box" class="guest-welcome-container">
                 <div id="guest-name-display" class="guest-name"></div>
             </div>
-            
             <div class="anim-box">
-                <div class="rings-wrapper">
-                    <div class="ring ring-left"></div>
-                    <div class="ring ring-right"></div>
-                </div>
+                <div class="rings-wrapper"><div class="ring ring-left"></div><div class="ring ring-right"></div></div>
                 <div class="spark" id="loaderSpark"></div>
-                <svg class="infinity" viewBox="0 0 100 50">
-                    <path d="M20,25 C20,10 40,10 50,25 C60,40 80,40 80,25 C80,10 60,10 50,25 C40,40 20,40 20,25 Z" />
-                </svg>
+                <svg class="infinity" viewBox="0 0 100 50"><path d="M20,25 C20,10 40,10 50,25 C60,40 80,40 80,25 C80,10 60,10 50,25 C40,40 20,40 20,25 Z" /></svg>
             </div>
-            
             <div class="tap-msg">TOCCA PER ENTRARE</div>
         </div>
     </div>
 
     <div id="main-wrapper">
-        
         <div class="hero">
             <div class="hero-img"></div>
             <div class="hero-overlay"></div>
             <div class="hero-content" data-aos="zoom-in" data-aos-duration="2000">
                 <span class="hero-date">11 Luglio 2026</span>
             </div>
-            <div class="scroll-indicator">
-                <span class="scroll-text">Scorri</span>
-                <i class="fa-solid fa-chevron-down"></i>
-            </div>
+            <div class="scroll-indicator"><span class="scroll-text">Scorri</span><i class="fa-solid fa-chevron-down"></i></div>
         </div>
 
         <div class="section" data-aos="fade-up">
@@ -412,61 +397,29 @@
                 <span class="timer-lbl">Al Grande Giorno</span>
             </div>
             <br>
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Matrimonio+Domenico+e+Anna&dates=20260711T150000Z/20260711T230000Z&details=Festeggia+con+noi!&location=Chiesa+di+Santa+Maria+della+Croce,+Noci+(BA)" target="_blank" class="cal-btn">
-                Salva la Data
-            </a>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Matrimonio+Domenico+e+Anna&dates=20260711T150000Z/20260711T230000Z&details=Festeggia+con+noi!&location=Chiesa+di+Santa+Maria+della+Croce,+Noci+(BA)" target="_blank" class="cal-btn">Salva la Data</a>
         </div>
 
         <div class="section" id="church-section" data-aos="fade-up">
-            <div class="floral-separator">
-                <svg viewBox="0 0 250 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M10,15 L100,15" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round"/>
-                    <path d="M150,15 L240,15" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round"/>
-                    <path d="M125,5 Q135,15 125,25 Q115,15 125,5 Z" fill="var(--gold)"/>
-                    <circle cx="108" cy="15" r="2.5" fill="var(--gold)"/>
-                    <circle cx="142" cy="15" r="2.5" fill="var(--gold)"/>
-                </svg>
-            </div>
+            <div class="floral-separator"><svg viewBox="0 0 250 30" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10,15 L100,15" stroke="var(--gold)" stroke-width="1.5"/><path d="M150,15 L240,15" stroke="var(--gold)" stroke-width="1.5"/><circle cx="125" cy="15" r="2.5" fill="var(--gold)"/></svg></div>
             <div class="gold-title">Il Rito</div>
             <h2>La Promessa Solenne</h2>
             <p>"Vi aspettiamo per scambiarci le nostre promesse in una cornice a noi molto cara."</p>
-            <div class="img-reveal-container" data-aos="reveal-img" data-aos-duration="1500">
-                <img src="https://i.ibb.co/Ld4Dgqhg/01-chiesa-santa-maria-della-croce.jpg" class="loc-img">
-            </div>
+            <div class="img-reveal-container" data-aos="reveal-img" data-aos-duration="1500"><img src="https://i.ibb.co/Ld4Dgqhg/01-chiesa-santa-maria-della-croce.jpg" class="loc-img"></div>
             <div class="church-info">Chiesa di Santa Maria della Croce</div>
             <span style="display:block; font-size:1.1rem; letter-spacing:2px; margin-bottom:20px; color:#555;">NOCI (BA) • ORE 17:00</span>
             <a href="https://www.google.com/maps/search/?api=1&query=Chiesa+Santa+Maria+della+Croce+Noci" target="_blank" class="map-btn">APRI MAPPA</a>
         </div>
 
         <div class="section" id="location-section" data-aos="fade-up">
-            <div class="floral-separator">
-                <svg viewBox="0 0 250 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M10,15 L100,15" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round"/>
-                    <path d="M150,15 L240,15" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round"/>
-                    <path d="M125,5 Q135,15 125,25 Q115,15 125,5 Z" fill="var(--gold)"/>
-                    <circle cx="108" cy="15" r="2.5" fill="var(--gold)"/>
-                    <circle cx="142" cy="15" r="2.5" fill="var(--gold)"/>
-                </svg>
-            </div>
             <div class="gold-title">La Festa</div>
             <h2>Festeggiamo Insieme</h2>
-            <p>"Dopo il rito, la serata proseguirà tra i sapori e la magia degli ulivi pugliesi di Miramonte ai Monitilli. Preparatevi a brindare e ballare!"</p>
-            <div class="img-reveal-container" data-aos="reveal-img" data-aos-duration="1500">
-                <img src="https://i.ibb.co/4RfBhyX2/6ef86d9a-adde-4bf1-9e44-9a46c6ac2b80-2-18194-174582777124610.jpg" class="loc-img">
-            </div>
+            <p>"Dopo il rito, la serata proseguirà tra i sapori e la magia degli ulivi pugliesi di Miramonte ai Monitilli."</p>
+            <div class="img-reveal-container" data-aos="reveal-img" data-aos-duration="1500"><img src="https://i.ibb.co/4RfBhyX2/6ef86d9a-adde-4bf1-9e44-9a46c6ac2b80-2-18194-174582777124610.jpg" class="loc-img"></div>
             <a href="https://www.google.com/maps/search/?api=1&query=Miramonte+ai+Monitilli+Noci" target="_blank" class="map-btn">RAGGIUNGI LA MASSERIA</a>
         </div>
 
         <div class="section" data-aos="fade-up">
-            <div class="floral-separator">
-                <svg viewBox="0 0 250 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M10,15 L100,15" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round"/>
-                    <path d="M150,15 L240,15" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round"/>
-                    <path d="M125,5 Q135,15 125,25 Q115,15 125,5 Z" fill="var(--gold)"/>
-                    <circle cx="108" cy="15" r="2.5" fill="var(--gold)"/>
-                    <circle cx="142" cy="15" r="2.5" fill="var(--gold)"/>
-                </svg>
-            </div>
             <div class="gold-title">RSVP</div>
             <h2>La Vostra Presenza</h2>
             <div style="margin-top: -10px; margin-bottom: 30px;">
@@ -477,11 +430,10 @@
                 <div id="rsvp-success-msg" style="display:none; text-align:center; padding: 10px 0;">
                     <i class="fa-solid fa-check-circle" style="font-size:3.5rem; color:#25D366; margin-bottom:15px;"></i>
                     <h3 style="font-family:'Cormorant Garamond'; font-size:2rem; color:var(--ink); margin-bottom:10px;">Risposta Registrata!</h3>
-                    <p style="font-size:1rem; color:#666; line-height:1.4;">Hai già inviato la tua conferma da questo dispositivo.</p>
                 </div>
                 <form id="rsvpForm">
                     <div id="guest-readonly-box" style="display:none; margin-bottom:30px; text-align:center; border-bottom:1px solid rgba(0,0,0,0.05); padding-bottom:25px;">
-                        <span id="guest-readonly-name" style="font-family:'Pinyon Script', cursive; font-size:3.2rem; color:var(--gold); display:block; line-height: 1;"></span>
+                        <span id="guest-readonly-name"></span>
                     </div>
 
                     <div id="nome-container">
@@ -502,25 +454,14 @@
                         <label>Eventuali Intolleranze</label>
                         <input type="text" id="note" style="text-align:left;">
                     </div>
-                    <button type="submit" class="cal-btn wa-btn-sweep" style="width:100%; border:none; background:#25D366; color:#fff; cursor:pointer; font-size: 0.95rem; padding: 20px; border-radius: 15px; margin-top: 15px;">
-                        CONFERMA SU WHATSAPP
-                    </button>
+                    <button type="submit" class="cal-btn wa-btn-sweep" style="width:100%; border:none; background:#25D366; color:#fff; cursor:pointer; font-size: 0.95rem; padding: 20px; border-radius: 15px; margin-top: 15px; font-weight:700;">CONFERMA SU WHATSAPP</button>
                 </form>
             </div>
         </div>
 
         <div class="section" data-aos="fade-up">
-            <div class="floral-separator">
-                <svg viewBox="0 0 250 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M10,15 L100,15" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round"/>
-                    <path d="M150,15 L240,15" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round"/>
-                    <path d="M125,5 Q135,15 125,25 Q115,15 125,5 Z" fill="var(--gold)"/>
-                    <circle cx="108" cy="15" r="2.5" fill="var(--gold)"/>
-                    <circle cx="142" cy="15" r="2.5" fill="var(--gold)"/>
-                </svg>
-            </div>
+            <div class="floral-separator"><svg viewBox="0 0 250 30" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10,15 L100,15" stroke="var(--gold)" stroke-width="1.5"/><path d="M150,15 L240,15" stroke="var(--gold)" stroke-width="1.5"/><circle cx="125" cy="15" r="2.5" fill="var(--gold)"/></svg></div>
             <div class="gold-title">Lista Nozze</div>
-            <h2>Il Nostro Futuro</h2>
             <p style="font-size:1.15rem;">La vostra presenza è il più bel regalo, ma se volete mandarci a quel paese (di nozze!), potete farlo qui!!</p>
             <div class="gift-toggle" onclick="toggleGift()"><span>Mostra Coordinate IBAN</span><i class="fa-solid fa-chevron-down" id="chevron"></i></div>
             <div class="gift-menu" id="giftMenu">
@@ -533,25 +474,13 @@
         </div>
 
         <div class="section" data-aos="fade-up">
-            <div class="floral-separator">
-                <svg viewBox="0 0 250 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M10,15 L100,15" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round"/>
-                    <path d="M150,15 L240,15" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round"/>
-                    <path d="M125,5 Q135,15 125,25 Q115,15 125,5 Z" fill="var(--gold)"/>
-                    <circle cx="108" cy="15" r="2.5" fill="var(--gold)"/>
-                    <circle cx="142" cy="15" r="2.5" fill="var(--gold)"/>
-                </svg>
-            </div>
             <div class="gold-title">I Vostri Scatti</div>
-            <h2>Condividi i Ricordi</h2>
-            <p style="font-size:1.15rem;">Vivete la giornata e scattate più foto che potete! Cliccate qui sotto per caricarle direttamente nel nostro album digitale in modo semplice e veloce.</p>
-            <a href="https://script.google.com/macros/s/AKfycbxqNHHgRgu2eU_T25aTZk28QPcGf4bmQfkX22QCrTwPpvDFKMhA9sxMX291icgpiDnENg/exec" target="_blank" class="cal-btn wa-btn-sweep" style="width:90%; max-width:350px; border:none; background:var(--ink); color:#fff; cursor:pointer; font-size: 0.85rem; padding: 22px; border-radius: 15px; margin-top: 15px; display: inline-flex; justify-content: center; align-items: center; gap: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.15);">
-                CARICA LE TUE FOTO
-            </a>
+            <p style="font-size:1.15rem;">Vivete la giornata e scattate più foto che potete! Cliccate qui sotto per caricarle direttamente nel nostro album digitale.</p>
+            <a href="https://script.google.com/macros/s/AKfycbxqNHHgRgu2eU_T25aTZk28QPcGf4bmQfkX22QCrTwPpvDFKMhA9sxMX291icgpiDnENg/exec" target="_blank" class="cal-btn wa-btn-sweep" style="width:90%; max-width:350px; border:none; background:var(--ink); color:#fff; cursor:pointer; font-size: 0.85rem; padding: 22px; border-radius: 15px; margin-top: 15px; display: inline-flex; justify-content: center; align-items: center; gap: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.15);">CARICA LE TUE FOTO</a>
         </div>
 
         <div class="section" style="padding-bottom:100px; padding-top:50px;">
-            <div class="romantic-quote" data-aos="fade-up" data-aos-duration="1500" style="margin-bottom: 40px; font-weight: 600; font-size: 2.2rem; color: var(--gold);">"Al ritmo dell’amore per tutta la vita!"</div>
+            <div class="romantic-quote" data-aos="fade-up" data-aos-duration="1500">"Al ritmo dell’amore per tutta la vita!"</div>
             <div class="contacts-grid" data-aos="fade-up">
                 <div class="c-card glass-box"><span class="c-name">Domenico</span><div class="c-actions"><a href="tel:393923546644" class="c-btn"><i class="fa-solid fa-phone"></i></a><a href="https://wa.me/393923546644" class="c-btn c-btn-wa"><i class="fa-brands fa-whatsapp"></i></a></div></div>
                 <div class="c-card glass-box"><span class="c-name">Anna</span><div class="c-actions"><a href="tel:393208626288" class="c-btn"><i class="fa-solid fa-phone"></i></a><a href="https://wa.me/393208626288" class="c-btn c-btn-wa"><i class="fa-brands fa-whatsapp"></i></a></div></div>
@@ -567,11 +496,10 @@
             const urlParams = new URLSearchParams(window.location.search);
             const ospiti = urlParams.get('ospiti');
             const nomeInput = document.getElementById('nome');
-            
-            if(urlParams.get('reset') === 'ok') {
-                localStorage.removeItem('rsvp_inviato_domenico_anna');
-                alert("Memoria sbloccata! Il form è di nuovo visibile.");
-            }
+            const nomeContainer = document.getElementById('nome-container');
+            const guestReadonlyBox = document.getElementById('guest-readonly-box');
+            const guestReadonlyName = document.getElementById('guest-readonly-name');
+            const guestWelcomeDisplay = document.getElementById('guest-name-display');
 
             if(localStorage.getItem('rsvp_inviato_domenico_anna') === 'true') {
                 document.getElementById('rsvpForm').style.display = 'none';
@@ -579,16 +507,14 @@
             }
 
             if (ospiti) {
-                // Aggiunge "Per " davanti al nome nel caricamento
-                document.getElementById('guest-name-display').innerText = "Per " + ospiti;
+                guestWelcomeDisplay.innerText = "Per " + ospiti;
                 document.getElementById('guest-box').style.opacity = "1";
                 
                 if(nomeInput) {
                     nomeInput.value = ospiti; 
-                    // Nasconde tutto il rettangolo e la scritta "Nome e Cognome"
-                    document.getElementById('nome-container').style.display = 'none'; 
-                    document.getElementById('guest-readonly-name').innerText = ospiti;
-                    document.getElementById('guest-readonly-box').style.display = 'block'; 
+                    nomeContainer.style.display = 'none'; 
+                    guestReadonlyName.innerText = ospiti;
+                    guestReadonlyBox.style.display = 'block'; 
                 }
 
                 const lowerName = ospiti.toLowerCase();
@@ -609,69 +535,29 @@
         });
 
         window.onscroll = function() {
-            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            let scrolled = (winScroll / height) * 100;
+            let scrolled = (window.scrollY / (document.documentElement.scrollHeight - document.documentElement.clientHeight)) * 100;
             document.getElementById("scroll-progress").style.width = scrolled + "%";
-            
             const sticky = document.getElementById('sticky-bar');
             const backBtn = document.getElementById('back-to-top');
             const target = document.getElementById('church-section');
-            if(target) {
-                const pos = target.getBoundingClientRect().top;
-                if(pos < 150) {
-                    sticky.classList.add('visible');
-                    backBtn.classList.add('visible');
-                } else {
-                    sticky.classList.remove('visible');
-                    backBtn.classList.remove('visible');
-                }
-            }
+            if(target && target.getBoundingClientRect().top < 150) { sticky.classList.add('visible'); backBtn.classList.add('visible'); } 
+            else { sticky.classList.remove('visible'); backBtn.classList.remove('visible'); }
         };
 
         function toggleMusic() {
             const music = document.getElementById('bg-music');
             const icon = document.querySelector('#music-toggle i');
-            if (music.paused) {
-                music.play();
-                icon.classList.remove('fa-volume-xmark');
-                icon.classList.add('fa-volume-high');
-            } else {
-                music.pause();
-                icon.classList.remove('fa-volume-high');
-                icon.classList.add('fa-volume-xmark');
-            }
+            if (music.paused) { music.play(); icon.classList.replace('fa-volume-xmark', 'fa-volume-high'); } 
+            else { music.pause(); icon.classList.replace('fa-volume-high', 'fa-volume-xmark'); }
         }
 
         function activateLoader() {
             const loader = document.getElementById('loader');
-            const main = document.getElementById('main-wrapper');
-            const spark = document.getElementById('loaderSpark');
-            const music = document.getElementById('bg-music');
-            const musicBtn = document.getElementById('music-toggle');
-            
-            music.load();
-            let playPromise = music.play();
-            if (playPromise !== undefined) {
-                playPromise.then(_ => {
-                    document.querySelector('#music-toggle i').classList.remove('fa-volume-xmark');
-                    document.querySelector('#music-toggle i').classList.add('fa-volume-high');
-                }).catch(error => {
-                    document.querySelector('#music-toggle i').classList.remove('fa-volume-high');
-                    document.querySelector('#music-toggle i').classList.add('fa-volume-xmark');
-                });
-            }
-
+            document.getElementById('bg-music').play();
             loader.classList.add('animating');
-            setTimeout(() => { spark.classList.add('fade'); }, 500);
+            setTimeout(() => { document.getElementById('loaderSpark').classList.add('fade'); }, 500);
             setTimeout(() => { loader.classList.add('open'); }, 1200);
-            setTimeout(() => {
-                loader.style.display = 'none';
-                document.body.style.overflowY = 'auto'; 
-                main.style.opacity = '1';
-                musicBtn.style.display = 'flex'; 
-                AOS.init({ duration: 1200, once: true, offset: 50 });
-            }, 2500);
+            setTimeout(() => { loader.style.display = 'none'; document.body.style.overflowY = 'auto'; document.getElementById('main-wrapper').style.opacity = '1'; document.getElementById('music-toggle').style.display = 'flex'; AOS.init({ duration: 1200, once: true }); }, 2500);
         }
 
         const date = new Date("July 11, 2026 11:00:00").getTime();
@@ -679,136 +565,57 @@
             const now = new Date().getTime();
             const dist = date - now;
             if(dist > 0) {
-                const d = Math.floor(dist/(1000*60*60*24));
-                const h = Math.floor((dist%(1000*60*60*24))/(1000*60*60));
-                const m = Math.floor((dist%(1000*60*60))/(1000*60));
-                const s = Math.floor((dist%(1000*60))/1000);
+                const d = Math.floor(dist/(1000*60*60*24)), h = Math.floor((dist%(1000*60*60*24))/(1000*60*60)), m = Math.floor((dist%(1000*60*60))/(1000*60)), s = Math.floor((dist%(1000*60))/1000);
                 document.getElementById('timer-main').innerText = `- ${d}g ${h}h ${m}m ${s}s`;
                 document.getElementById('timer-sticky').innerText = `- ${d}g ${h}h ${m}m`;
-            } else {
-                document.getElementById('timer-main').innerText = "OGGI SPOSI!";
-                document.getElementById('timer-sticky').innerText = "OGGI SPOSI!";
-            }
+            } else { document.getElementById('timer-main').innerText = "OGGI SPOSI!"; }
         }, 1000);
 
-        function toggleGift() {
-            const menu = document.getElementById('giftMenu');
-            const icon = document.getElementById('chevron');
-            menu.classList.toggle('open');
-            icon.style.transform = menu.classList.contains('open') ? "rotate(180deg)" : "rotate(0deg)";
-        }
+        function toggleGift() { const menu = document.getElementById('giftMenu'); menu.classList.toggle('open'); document.getElementById('chevron').style.transform = menu.classList.contains('open') ? "rotate(180deg)" : "rotate(0deg)"; }
 
         function copyIban() {
             const ibanPulito = document.getElementById('ibanText').innerText.replace(/\s+/g, '');
             navigator.clipboard.writeText(ibanPulito);
-            
             const btn = document.getElementById('copyIbanBtn');
             btn.innerHTML = 'IBAN COPIATO!';
             btn.style.color = '#25D366';
-            btn.style.borderColor = '#25D366';
-            
-            const rect = btn.getBoundingClientRect();
-            const x = (rect.left + rect.width / 2) / window.innerWidth;
-            const y = (rect.top + rect.height / 2) / window.innerHeight;
-            
-            confetti({
-                particleCount: 40,
-                spread: 60,
-                origin: { x: x, y: y },
-                colors: ['#B8860B', '#F4D068', '#FFFFFF'],
-                ticks: 100,
-                zIndex: 9999
-            });
-
-            setTimeout(() => {
-                btn.innerHTML = 'COPIA IBAN';
-                btn.style.color = 'var(--gold)';
-                btn.style.borderColor = 'var(--gold)';
-            }, 3000);
+            confetti({ particleCount: 40, origin: { y: 0.8 }, colors: ['#B8860B', '#FFF'] });
+            setTimeout(() => { btn.innerHTML = 'COPIA IBAN'; btn.style.color = 'var(--gold)'; }, 3000);
         }
 
         let participation = null;
         function setRsvp(val) {
             participation = val;
-            const det = document.getElementById('details-box');
             document.getElementById('opt-si').classList.toggle('active', val);
             document.getElementById('opt-no').classList.toggle('active', !val);
-            
-            if(val) { 
-                det.style.display = 'block'; 
-                confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#B8860B', '#FDFBF7', '#FFF'] });
-                updatePlural(); 
-            } else { det.style.display = 'none'; }
+            if(val) { document.getElementById('details-box').style.display = 'block'; confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } }); } 
+            else { document.getElementById('details-box').style.display = 'none'; }
         }
 
         function updatePlural() {
-            const ad = parseInt(document.getElementById('adulti').value) || 0;
-            const ba = parseInt(document.getElementById('bambini').value) || 0;
+            const ad = parseInt(document.getElementById('adulti').value) || 0, ba = parseInt(document.getElementById('bambini').value) || 0;
             const isPlural = (ad + ba > 1);
-            
             const elSi = document.getElementById('txt-si');
             const newTextSi = isPlural ? "SÌ, CI SAREMO" : "SÌ, CI SARÒ";
-            
-            if(elSi.innerText !== newTextSi) {
-                elSi.classList.add('morph-active');
-                setTimeout(() => { 
-                    elSi.innerText = newTextSi; 
-                    document.getElementById('lbl-question').innerText = isPlural ? "Confermate la presenza?" : "Confermi la presenza?";
-                    elSi.classList.remove('morph-active'); 
-                }, 300);
-            }
+            if(elSi.innerText !== newTextSi) { elSi.classList.add('morph-active'); setTimeout(() => { elSi.innerText = newTextSi; document.getElementById('lbl-question').innerText = isPlural ? "Confermate la presenza?" : "Confermi la presenza?"; elSi.classList.remove('morph-active'); }, 300); }
         }
 
         document.getElementById("rsvpForm").addEventListener("submit", function(e) {
             e.preventDefault();
             if(participation === null) { alert("Per favore indica se ci sarai."); return; }
-            
             const nome = document.getElementById("nome").value;
-            const waNumber = "393923546644"; 
-            
-            const ad = participation ? (parseInt(document.getElementById("adulti").value) || 0) : 0;
-            const ba = participation ? (parseInt(document.getElementById("bambini").value) || 0) : 0;
-            const total = ad + ba;
-            const note = participation ? document.getElementById("note").value : "";
-
-            const googleScriptURL = "https://script.google.com/macros/s/AKfycbwVo4al48u60aXuAfXpgefzSkhgNGy-p2ToCVIDaTe6isTRPwwgXiPW8_YaM3SDhLfa/exec"; 
-
-            if (googleScriptURL !== "INSERISCI_QUI_IL_LINK_DELLO_SCRIPT") {
-                let formData = new URLSearchParams();
-                formData.append("nome", nome);
-                formData.append("presenza", participation ? "SÌ" : "NO");
-                formData.append("adulti", ad);
-                formData.append("bambini", ba);
-                formData.append("note", note);
-
-                fetch(googleScriptURL, { method: 'POST', body: formData, mode: 'no-cors' })
-                    .then(() => console.log("Dati inviati a Excel"))
-                    .catch(error => console.error("Errore Excel:", error));
-            }
-
             localStorage.setItem('rsvp_inviato_domenico_anna', 'true');
             document.getElementById('rsvpForm').style.display = 'none';
             document.getElementById('rsvp-success-msg').style.display = 'block';
-
             let msg = "Ciao Domenico e Anna! Sono " + nome + ".\n\n";
-            
             if(participation) {
-                if (total > 1) {
-                    msg += "Confermiamo la nostra presenza.\nSaremo in totale: " + total + " persone.\nAdulti: " + ad + "\n";
-                    if (ba > 0) msg += "Bambini: " + ba + "\n";
-                    if (note.trim() !== "") msg += "\nNote/Intolleranze:\n" + note + "\n";
-                    msg += "\nNon vediamo l'ora di festeggiare con voi!";
-                } else {
-                    msg += "Confermo la mia presenza.\nAdulti: 1\n"; 
-                    if (note.trim() !== "") msg += "\nNote/Intolleranze:\n" + note + "\n";
-                    msg += "\nNon vedo l'ora di festeggiare con voi!";
-                }
+                msg += "Confermo/Confermiamo la nostra presenza al vostro matrimonio!\n";
+                msg += "Adulti: " + document.getElementById('adulti').value + " - Bambini: " + document.getElementById('bambini').value + "\n";
+                if(document.getElementById('note').value) msg += "Note: " + document.getElementById('note').value;
             } else {
-                msg += "Mi dispiace tantissimo ma non potrò esserci. Vi auguro una giornata meravigliosa!";
+                msg += "Purtroppo non potremo essere presenti, ma vi auguriamo il meglio!";
             }
-
-            const url = "https://api.whatsapp.com/send?phone=" + waNumber + "&text=" + encodeURIComponent(msg);
-            window.open(url, '_blank');
+            window.open("https://wa.me/393923546644?text=" + encodeURIComponent(msg), '_blank');
         });
     </script>
 </body>
