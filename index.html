@@ -483,8 +483,12 @@
                     <div id="guest-readonly-box" style="display:none; margin-bottom:30px; text-align:center; border-bottom:1px solid rgba(0,0,0,0.05); padding-bottom:25px;">
                         <span id="guest-readonly-name" style="font-family:'Pinyon Script', cursive; font-size:3.2rem; color:var(--gold); display:block; line-height: 1;"></span>
                     </div>
-                    <label style="margin-top: 10px;">Nome e Cognome</label>
-                    <input type="text" id="nome" placeholder="" required>
+
+                    <div id="nome-container">
+                        <label style="margin-top: 10px;">Nome e Cognome</label>
+                        <input type="text" id="nome" placeholder="" required>
+                    </div>
+
                     <label id="lbl-question">Confermi la presenza?</label>
                     <div class="status-btn">
                         <div class="s-opt" id="opt-si" onclick="setRsvp(true)"><span class="rsvp-text-display" id="txt-si">SÌ, CONFERMO</span></div>
@@ -563,48 +567,111 @@
             const urlParams = new URLSearchParams(window.location.search);
             const ospiti = urlParams.get('ospiti');
             const nomeInput = document.getElementById('nome');
-            if(urlParams.get('reset') === 'ok') localStorage.removeItem('rsvp_inviato_domenico_anna');
+            
+            if(urlParams.get('reset') === 'ok') {
+                localStorage.removeItem('rsvp_inviato_domenico_anna');
+                alert("Memoria sbloccata! Il form è di nuovo visibile.");
+            }
+
             if(localStorage.getItem('rsvp_inviato_domenico_anna') === 'true') {
                 document.getElementById('rsvpForm').style.display = 'none';
                 document.getElementById('rsvp-success-msg').style.display = 'block';
             }
+
             if (ospiti) {
-                document.getElementById('guest-name-display').innerText = ospiti;
+                // Aggiunge "Per " davanti al nome nel caricamento
+                document.getElementById('guest-name-display').innerText = "Per " + ospiti;
                 document.getElementById('guest-box').style.opacity = "1";
-                if(nomeInput) { nomeInput.value = ospiti; nomeInput.style.display = 'none'; document.getElementById('guest-readonly-name').innerText = ospiti; document.getElementById('guest-readonly-box').style.display = 'block'; }
+                
+                if(nomeInput) {
+                    nomeInput.value = ospiti; 
+                    // Nasconde tutto il rettangolo e la scritta "Nome e Cognome"
+                    document.getElementById('nome-container').style.display = 'none'; 
+                    document.getElementById('guest-readonly-name').innerText = ospiti;
+                    document.getElementById('guest-readonly-box').style.display = 'block'; 
+                }
+
                 const lowerName = ospiti.toLowerCase();
                 const isPlural = lowerName.includes('famiglia') || lowerName.includes(' e ') || lowerName.includes(' & ') || lowerName.includes('+') || lowerName.includes(',');
-                if (isPlural) { document.getElementById('lbl-question').innerText = "Confermate la presenza?"; document.getElementById('txt-si').innerText = "SÌ, CI SAREMO"; document.getElementById('txt-no').innerText = "NON POTREMO ESSERCI"; if(document.getElementById('adulti')) document.getElementById('adulti').value = "2"; } 
-                else { document.getElementById('lbl-question').innerText = "Confermi la presenza?"; document.getElementById('txt-si').innerText = "SÌ, CI SARÒ"; document.getElementById('txt-no').innerText = "NON POTRÒ ESSERCI"; if(document.getElementById('adulti')) document.getElementById('adulti').value = "1"; }
+
+                if (isPlural) {
+                    document.getElementById('lbl-question').innerText = "Confermate la presenza?";
+                    document.getElementById('txt-si').innerText = "SÌ, CI SAREMO";
+                    document.getElementById('txt-no').innerText = "NON POTREMO ESSERCI";
+                    if(document.getElementById('adulti')) document.getElementById('adulti').value = "2";
+                } else {
+                    document.getElementById('lbl-question').innerText = "Confermi la presenza?";
+                    document.getElementById('txt-si').innerText = "SÌ, CI SARÒ";
+                    document.getElementById('txt-no').innerText = "NON POTRÒ ESSERCI";
+                    if(document.getElementById('adulti')) document.getElementById('adulti').value = "1";
+                }
             }
         });
 
         window.onscroll = function() {
             let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            let scrolled = (winScroll / (document.documentElement.scrollHeight - document.documentElement.clientHeight)) * 100;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
             document.getElementById("scroll-progress").style.width = scrolled + "%";
+            
             const sticky = document.getElementById('sticky-bar');
             const backBtn = document.getElementById('back-to-top');
             const target = document.getElementById('church-section');
-            if(target && target.getBoundingClientRect().top < 150) { sticky.classList.add('visible'); backBtn.classList.add('visible'); } 
-            else { sticky.classList.remove('visible'); backBtn.classList.remove('visible'); }
+            if(target) {
+                const pos = target.getBoundingClientRect().top;
+                if(pos < 150) {
+                    sticky.classList.add('visible');
+                    backBtn.classList.add('visible');
+                } else {
+                    sticky.classList.remove('visible');
+                    backBtn.classList.remove('visible');
+                }
+            }
         };
 
         function toggleMusic() {
             const music = document.getElementById('bg-music');
             const icon = document.querySelector('#music-toggle i');
-            if (music.paused) { music.play(); icon.classList.replace('fa-volume-xmark', 'fa-volume-high'); } 
-            else { music.pause(); icon.classList.replace('fa-volume-high', 'fa-volume-xmark'); }
+            if (music.paused) {
+                music.play();
+                icon.classList.remove('fa-volume-xmark');
+                icon.classList.add('fa-volume-high');
+            } else {
+                music.pause();
+                icon.classList.remove('fa-volume-high');
+                icon.classList.add('fa-volume-xmark');
+            }
         }
 
         function activateLoader() {
             const loader = document.getElementById('loader');
             const main = document.getElementById('main-wrapper');
-            document.getElementById('bg-music').play();
+            const spark = document.getElementById('loaderSpark');
+            const music = document.getElementById('bg-music');
+            const musicBtn = document.getElementById('music-toggle');
+            
+            music.load();
+            let playPromise = music.play();
+            if (playPromise !== undefined) {
+                playPromise.then(_ => {
+                    document.querySelector('#music-toggle i').classList.remove('fa-volume-xmark');
+                    document.querySelector('#music-toggle i').classList.add('fa-volume-high');
+                }).catch(error => {
+                    document.querySelector('#music-toggle i').classList.remove('fa-volume-high');
+                    document.querySelector('#music-toggle i').classList.add('fa-volume-xmark');
+                });
+            }
+
             loader.classList.add('animating');
-            setTimeout(() => { document.getElementById('loaderSpark').classList.add('fade'); }, 500);
+            setTimeout(() => { spark.classList.add('fade'); }, 500);
             setTimeout(() => { loader.classList.add('open'); }, 1200);
-            setTimeout(() => { loader.style.display = 'none'; document.body.style.overflowY = 'auto'; main.style.opacity = '1'; document.getElementById('music-toggle').style.display = 'flex'; AOS.init({ duration: 1200, once: true }); }, 2500);
+            setTimeout(() => {
+                loader.style.display = 'none';
+                document.body.style.overflowY = 'auto'; 
+                main.style.opacity = '1';
+                musicBtn.style.display = 'flex'; 
+                AOS.init({ duration: 1200, once: true, offset: 50 });
+            }, 2500);
         }
 
         const date = new Date("July 11, 2026 11:00:00").getTime();
@@ -612,52 +679,136 @@
             const now = new Date().getTime();
             const dist = date - now;
             if(dist > 0) {
-                const d = Math.floor(dist/(1000*60*60*24)), h = Math.floor((dist%(1000*60*60*24))/(1000*60*60)), m = Math.floor((dist%(1000*60*60))/(1000*60)), s = Math.floor((dist%(1000*60))/1000);
+                const d = Math.floor(dist/(1000*60*60*24));
+                const h = Math.floor((dist%(1000*60*60*24))/(1000*60*60));
+                const m = Math.floor((dist%(1000*60*60))/(1000*60));
+                const s = Math.floor((dist%(1000*60))/1000);
                 document.getElementById('timer-main').innerText = `- ${d}g ${h}h ${m}m ${s}s`;
                 document.getElementById('timer-sticky').innerText = `- ${d}g ${h}h ${m}m`;
-            } else { document.getElementById('timer-main').innerText = "OGGI SPOSI!"; }
+            } else {
+                document.getElementById('timer-main').innerText = "OGGI SPOSI!";
+                document.getElementById('timer-sticky').innerText = "OGGI SPOSI!";
+            }
         }, 1000);
 
-        function toggleGift() { const menu = document.getElementById('giftMenu'); menu.classList.toggle('open'); document.getElementById('chevron').style.transform = menu.classList.contains('open') ? "rotate(180deg)" : "rotate(0deg)"; }
+        function toggleGift() {
+            const menu = document.getElementById('giftMenu');
+            const icon = document.getElementById('chevron');
+            menu.classList.toggle('open');
+            icon.style.transform = menu.classList.contains('open') ? "rotate(180deg)" : "rotate(0deg)";
+        }
 
         function copyIban() {
             const ibanPulito = document.getElementById('ibanText').innerText.replace(/\s+/g, '');
             navigator.clipboard.writeText(ibanPulito);
+            
             const btn = document.getElementById('copyIbanBtn');
             btn.innerHTML = 'IBAN COPIATO!';
             btn.style.color = '#25D366';
-            confetti({ particleCount: 40, origin: { y: 0.8 }, colors: ['#B8860B', '#FFF'] });
-            setTimeout(() => { btn.innerHTML = 'COPIA IBAN'; btn.style.color = 'var(--gold)'; }, 3000);
+            btn.style.borderColor = '#25D366';
+            
+            const rect = btn.getBoundingClientRect();
+            const x = (rect.left + rect.width / 2) / window.innerWidth;
+            const y = (rect.top + rect.height / 2) / window.innerHeight;
+            
+            confetti({
+                particleCount: 40,
+                spread: 60,
+                origin: { x: x, y: y },
+                colors: ['#B8860B', '#F4D068', '#FFFFFF'],
+                ticks: 100,
+                zIndex: 9999
+            });
+
+            setTimeout(() => {
+                btn.innerHTML = 'COPIA IBAN';
+                btn.style.color = 'var(--gold)';
+                btn.style.borderColor = 'var(--gold)';
+            }, 3000);
         }
 
         let participation = null;
         function setRsvp(val) {
             participation = val;
+            const det = document.getElementById('details-box');
             document.getElementById('opt-si').classList.toggle('active', val);
             document.getElementById('opt-no').classList.toggle('active', !val);
-            if(val) { document.getElementById('details-box').style.display = 'block'; confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } }); } 
-            else { document.getElementById('details-box').style.display = 'none'; }
+            
+            if(val) { 
+                det.style.display = 'block'; 
+                confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#B8860B', '#FDFBF7', '#FFF'] });
+                updatePlural(); 
+            } else { det.style.display = 'none'; }
         }
 
         function updatePlural() {
-            const ad = parseInt(document.getElementById('adulti').value) || 0, ba = parseInt(document.getElementById('bambini').value) || 0;
+            const ad = parseInt(document.getElementById('adulti').value) || 0;
+            const ba = parseInt(document.getElementById('bambini').value) || 0;
             const isPlural = (ad + ba > 1);
+            
             const elSi = document.getElementById('txt-si');
             const newTextSi = isPlural ? "SÌ, CI SAREMO" : "SÌ, CI SARÒ";
-            if(elSi.innerText !== newTextSi) { elSi.classList.add('morph-active'); setTimeout(() => { elSi.innerText = newTextSi; document.getElementById('lbl-question').innerText = isPlural ? "Confermate la presenza?" : "Confermi la presenza?"; elSi.classList.remove('morph-active'); }, 300); }
+            
+            if(elSi.innerText !== newTextSi) {
+                elSi.classList.add('morph-active');
+                setTimeout(() => { 
+                    elSi.innerText = newTextSi; 
+                    document.getElementById('lbl-question').innerText = isPlural ? "Confermate la presenza?" : "Confermi la presenza?";
+                    elSi.classList.remove('morph-active'); 
+                }, 300);
+            }
         }
 
         document.getElementById("rsvpForm").addEventListener("submit", function(e) {
             e.preventDefault();
             if(participation === null) { alert("Per favore indica se ci sarai."); return; }
+            
             const nome = document.getElementById("nome").value;
+            const waNumber = "393923546644"; 
+            
+            const ad = participation ? (parseInt(document.getElementById("adulti").value) || 0) : 0;
+            const ba = participation ? (parseInt(document.getElementById("bambini").value) || 0) : 0;
+            const total = ad + ba;
+            const note = participation ? document.getElementById("note").value : "";
+
+            const googleScriptURL = "https://script.google.com/macros/s/AKfycbwVo4al48u60aXuAfXpgefzSkhgNGy-p2ToCVIDaTe6isTRPwwgXiPW8_YaM3SDhLfa/exec"; 
+
+            if (googleScriptURL !== "INSERISCI_QUI_IL_LINK_DELLO_SCRIPT") {
+                let formData = new URLSearchParams();
+                formData.append("nome", nome);
+                formData.append("presenza", participation ? "SÌ" : "NO");
+                formData.append("adulti", ad);
+                formData.append("bambini", ba);
+                formData.append("note", note);
+
+                fetch(googleScriptURL, { method: 'POST', body: formData, mode: 'no-cors' })
+                    .then(() => console.log("Dati inviati a Excel"))
+                    .catch(error => console.error("Errore Excel:", error));
+            }
+
             localStorage.setItem('rsvp_inviato_domenico_anna', 'true');
             document.getElementById('rsvpForm').style.display = 'none';
             document.getElementById('rsvp-success-msg').style.display = 'block';
+
             let msg = "Ciao Domenico e Anna! Sono " + nome + ".\n\n";
-            if(participation) { msg += "Confermiamo la nostra presenza!\nPersone: " + (parseInt(document.getElementById('adulti').value) + parseInt(document.getElementById('bambini').value)); } 
-            else { msg += "Purtroppo non potremo essere presenti."; }
-            window.open("https://wa.me/393923546644?text=" + encodeURIComponent(msg), '_blank');
+            
+            if(participation) {
+                if (total > 1) {
+                    msg += "Confermiamo la nostra presenza.\nSaremo in totale: " + total + " persone.\nAdulti: " + ad + "\n";
+                    if (ba > 0) msg += "Bambini: " + ba + "\n";
+                    if (note.trim() !== "") msg += "\nNote/Intolleranze:\n" + note + "\n";
+                    msg += "\nNon vediamo l'ora di festeggiare con voi!";
+                } else {
+                    msg += "Confermo la mia presenza.\nAdulti: 1\n"; 
+                    if (note.trim() !== "") msg += "\nNote/Intolleranze:\n" + note + "\n";
+                    msg += "\nNon vedo l'ora di festeggiare con voi!";
+                }
+            } else {
+                msg += "Mi dispiace tantissimo ma non potrò esserci. Vi auguro una giornata meravigliosa!";
+            }
+
+            const url = "https://api.whatsapp.com/send?phone=" + waNumber + "&text=" + encodeURIComponent(msg);
+            window.open(url, '_blank');
         });
     </script>
 </body>
